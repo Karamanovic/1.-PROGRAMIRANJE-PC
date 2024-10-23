@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PassX - Your Personal Password Manager</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <nav>
+        <div class="logo">PassGuard</div>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Password Manager</h1>
+        <p>
+            We're glad you’re here! Your security is our top priority, and we’re
+            committed to helping you manage your passwords safely and easily. With
+            our intuitive interface, you can securely store, generate, and manage
+            all your passwords in one place.
+        </p>
+        
+        <h2>Your Passwords <span id="alert" style="display: none;">(Copied!)</span></h2>
+        
+        <table class="responsive" id="passwordTable">
+            <tr>
+                <th>Website</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Delete</th>
+            </tr>
+            <!-- Password entries will be dynamically added here -->
+        </table>
+
+        <h2>Add a Password</h2>
+        <form id="passwordForm">
+            <!-- Text input for website -->
+            <label for="website">Website:</label>
+            <input type="text" id="website" name="website" required />
+            <br /><br />
+
+            <!-- Text input for username -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+            <br /><br />
+
+            <!-- Password input -->
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <br />
+
+            <!-- Submit button -->
+            <button class="btn" type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('passwordForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+
+            const website = document.getElementById('website').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ website, username, password }),
+                });
+
+                const result = await response.json();
+                alert(result.message); // Show alert with the response message
+                
+                // Optionally, you can add the new password to the table
+                if (response.status === 201) {
+                    addPasswordToTable(website, username, password);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error saving data');
+            }
+        });
+
+        function addPasswordToTable(website, username, password) {
+            const table = document.getElementById('passwordTable');
+            const newRow = table.insertRow(-1); // Insert a new row at the end
+
+            newRow.innerHTML = `
+                <td>${website}</td>
+                <td>${username}</td>
+                <td>${password}</td>
+                <td><button onclick="deletePassword(this)">Delete</button></td>
+            `;
+        }
+
+        function deletePassword(button) {
+            const row = button.parentNode.parentNode; // Get the row of the button
+            row.parentNode.removeChild(row); // Remove the row from the table
+            alert('Password entry deleted!'); // Optional alert
+        }
+    </script>
+</body>
+</html>
