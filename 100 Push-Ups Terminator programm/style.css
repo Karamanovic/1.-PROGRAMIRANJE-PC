@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    }
+  
+  h1 {
+    color: #333;
+  }
+  
+  table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #333;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: start;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .completed {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .complete-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+  }
+  
+  .undo-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
