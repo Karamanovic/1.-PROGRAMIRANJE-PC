@@ -119,6 +119,7 @@ const days = [
   
       trackerBody.appendChild(row);
     });
+        
   }
   
   // Stopwatch Functions
@@ -158,5 +159,9 @@ const days = [
   // Initialize
   createTracker();
   loadCompletedDays();
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   
   
