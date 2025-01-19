@@ -9,7 +9,8 @@
 <body>
   <h1>100 Push-Ups Challenge Tracker</h1>
   <p>Complete each day's push-up sets, rest every 6th day. Click "Complete" to mark a day, and "Undo" to reset.</p>
-  <p>Scroll down or <a href="#stopwatch" id="scrollToStopwatch">click here</a> to go to Stopwatch.</p>
+  <p><strong>REST 60 SECONDS BETWEEN EACH SET (LONGER IF REQUIRED)</strong></p>
+  <p>Scroll down or <a href="#stopwatch" id="scrollToStopwatch">click here</a> to go to Stopwatch and Curent Workout Day.</p>
 
   <!-- Tracker Table -->
   <table id="tracker">
@@ -30,6 +31,9 @@
       <h2>Current Workout Day</h2>
       <p id="workout-details"class="current-workout">Loading...</p>
     </div>
+    <p class="note">
+      <strong>Note:</strong> After completing all sets, press "Complete" in the table to mark the day as completed.
+    </p>
 
   <!-- Stopwatch Section -->
   <div class="stopwatch" id="stopwatch">
@@ -48,6 +52,7 @@
     <img src="arrow-up.png" alt="Go to Top" id="arrow-up" onclick="scrollToTop()" style="width: 48px; cursor: pointer;">
   </div>
   <p><a href="#">Back to top.</a></p>
+  <p>&copy; 2025 Dejan Karamanović. All rights reserved.</p>
 
   <script src="script.js"></script>
 </body>

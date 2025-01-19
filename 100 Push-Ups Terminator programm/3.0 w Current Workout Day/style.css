@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
 
 body {
-  background: #edeaff;
+  background: #2a2237;
   font-family: "DM Serif Text", serif;
   font-weight: 400;
   margin: 0;
   padding: 0;
   text-align: center;
+  color: white;
   }
 
 h1, h2 {
-  color: #333;
+  color: white;
 }
-
+tr {
+  color: white;
+}
 table {
   width: 80%;
   margin: 20px auto;
@@ -20,18 +23,18 @@ table {
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid black;
   padding: 10px;
   text-align: center;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: rgb(39, 41, 41);
 }
 
 .completed {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: #1e3124;
+  color: #77ab6d;
 }
 
 button {
@@ -41,7 +44,7 @@ button {
 
 .complete-btn {
   background-color: #28a745;
-  color: white;
+  color: #262626;
   border: none;
 }
 
@@ -111,11 +114,11 @@ button {
     flex-direction: row; /* Ensure items are in a row */
     justify-content: center; /* Space out items evenly with space around them */
     align-items: center; /* Align items vertically in the center */
-    background-color: #f9f9f9;
+    background-color: #121212;
     padding: 10px 20px; /* Add some padding for aesthetics */
     margin: 20px auto;
     width: 90%; /* Adjust the width of the section */
-    border: 1px solid #ddd;
+    border: 1px solid black;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
@@ -129,12 +132,12 @@ button {
   
   .current-workout h2 {
     margin-bottom: 10px;
-    color: #333;
+    color: #262626;
   }
 
   .current-workout p {
     margin: 5px 0;
-    color: #555;
+    color: #262626;
     display: inline-block;
      
   }
@@ -148,7 +151,7 @@ button {
   }
   
   .current-workout li {
-    background-color: #f0f0f0; /* Optional: Add a background to each list item */
+    background-color: #262626; /* Optional: Add a background to each list item */
     padding: 10px 15px; /* Add padding for aesthetics */
     border-radius: 5px; /* Round the edges of list items */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */

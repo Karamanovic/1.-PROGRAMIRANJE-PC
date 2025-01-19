@@ -212,10 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
     [seconds, minutes, hours] = [0, 0, 0];
     displayTime.innerHTML = "00:00:00";
   }
-  
-  // Initialize
-  createTracker();
-  loadCompletedDays();
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
