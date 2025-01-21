@@ -87,13 +87,6 @@ function displayCurrentWorkout() {
 function toggleSetComplete(item) {
   item.classList.toggle("completed");
 }
-
-// Initialize Tracker and Current Workout Display
-document.addEventListener("DOMContentLoaded", () => {
-  displayCurrentWorkout();
-  createTracker();
-  loadCompletedDays();
-});
   
   // Stopwatch Variables
   let [seconds, minutes, hours] = [0, 0, 0];
@@ -146,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function createTracker() {
     const trackerBody = document.getElementById("tracker-body");
+    trackerBody.innerHTML = ""; // Clear existing content
     days.forEach((day) => {
       const row = document.createElement("tr");
       row.classList.add("day-row");
@@ -420,6 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTranslations(); // Set the initial language
   createTracker(); // Create the tracker table
   loadCompletedDays(); // Load completed workout days
+  displayCurrentWorkout();
 
   const toggleButton = document.getElementById("language-toggle-btn");
   toggleButton.addEventListener("click", toggleLanguage);
