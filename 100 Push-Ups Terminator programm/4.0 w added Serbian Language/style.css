@@ -1,0 +1,202 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
+
+body {
+  background: #2a2237;
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: white;
+  }
+
+  .header {
+    padding: 5px;
+    margin: 10px;
+   
+  }
+
+h1, h2 {
+  color: white;
+  }
+tr {
+  color: white;
+}
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: rgb(39, 41, 41);
+}
+
+.completed {
+  background-color: #1e3124;
+  color: #77ab6d;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.complete-btn {
+  background-color: #28a745;
+  color: #262626;
+  border: none;
+}
+
+.undo-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+
+.stopwatch {
+  width: 90%;
+  /* max-width: 600px; */
+  background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(slika1.jpg);
+  background-position: center;
+  text-align: center;
+  padding: 40px 0;
+  color: #fff;
+  margin: 50px auto;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+}
+
+.stopwatch h1 {
+  margin-top: 20px;
+  font-size: 64px;
+  font-weight: 300;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons img {
+  width: 50px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.buttons img:nth-child(2) {
+  width: 80px;
+}
+.arrow-up-container {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  
+ }
+.arrow-up {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+ opacity: 0.8;
+  transition: opacity 0.3s ease;
+   
+}
+.arrow-up:hover {
+  opacity: 1;
+  }
+
+  /* Current Workout Section */
+  .current-workout {
+    display: flex; /* Use flexbox to arrange items in a row */
+    flex-direction: row; /* Ensure items are in a row */
+    justify-content: center; /* Space out items evenly with space around them */
+    align-items: center; /* Align items vertically in the center */
+    background-color: #121212;
+    padding: 10px 20px; /* Add some padding for aesthetics */
+    margin: 20px auto;
+    width: 90%; /* Adjust the width of the section */
+    border: 1px solid black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    gap: 20px; /* Add spacing between the flex items */
+
+  }
+  .current-workout div {
+    flex: 1; /* Ensure each part takes equal space */
+    
+  }
+  
+  .current-workout h2 {
+    margin-bottom: 10px;
+    color: #262626;
+  }
+
+  .current-workout p {
+    margin: 5px 0;
+    color: #262626;
+    display: inline-block;
+     
+  }
+
+  .current-workout ul {
+    display: flex; /* Use flexbox to align items in a single row */
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    gap: 20px; /* Add space between list items */
+  }
+  
+  .current-workout li {
+    background-color: #262626; /* Optional: Add a background to each list item */
+    padding: 10px 15px; /* Add padding for aesthetics */
+    border-radius: 5px; /* Round the edges of list items */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  }
+  
+/* Default list item style */
+.toggle-set {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa; /* Default background */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect */
+.toggle-set:hover {
+  background-color: #e2e6ea;
+}
+
+/* Completed state */
+.toggle-set.completed {
+  background-color: #28a745; /* Green background */
+  color: white;
+  border-color: #28a745;
+}
+
+.language-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #262626;
+}
+
+.language-toggle button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
