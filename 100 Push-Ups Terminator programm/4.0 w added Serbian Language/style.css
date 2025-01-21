@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
 
 body {
-  background: #2a2237;
+  background: #151515;
   font-family: "DM Serif Text", serif;
   font-weight: 400;
   margin: 0;
@@ -10,6 +10,7 @@ body {
   text-align: center;
   color: white;
   }
+  
 
   .header {
     padding: 5px;
@@ -24,19 +25,19 @@ tr {
   color: white;
 }
 table {
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   border-collapse: collapse;
 }
 
 th, td {
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 10px;
   text-align: center;
 }
 
 th {
-  background-color: rgb(39, 41, 41);
+  background-color: #050505;
 }
 
 .completed {
@@ -70,7 +71,7 @@ button {
   text-align: center;
   padding: 40px 0;
   color: #fff;
-  margin: 50px auto;
+  margin: 30px auto;
   box-shadow: 0 10px 10px rgba(0,0,0,0.2);
 }
 
@@ -95,74 +96,120 @@ button {
 .buttons img:nth-child(2) {
   width: 80px;
 }
-.arrow-up-container {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  
- }
-.arrow-up {
-  width: 48px;
+/* Arrow-Up Button */
+#arrow-up {
+  position: fixed; /* Fixed position to make it float */
+  bottom: 60px; /* Adjust to sit above the footer */
+  right: 20px; /* Position from the right */
+  width: 48px; /* Set the size of the icon */
   height: 48px;
   cursor: pointer;
- opacity: 0.8;
-  transition: opacity 0.3s ease;
-   
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Prevent it from taking up space when hidden */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for appearance */
+  z-index: 1001; /* Ensure it appears above the footer */
 }
-.arrow-up:hover {
-  opacity: 1;
-  }
+
+/* Show the button when active */
+#arrow-up.show {
+  opacity: 0.8;
+  visibility: visible;
+}
+
+#arrow-up:hover {
+  opacity: 1; /* Fully visible on hover */
+}
 
   /* Current Workout Section */
+#current-workout {
+  display: flex;
+  flex-direction: column; /* Default to a column layout for better responsiveness */
+  justify-content: center;
+  align-items: center;
+  background-color: #2a2a2a;
+  padding: 20px; /* Add more padding for comfort */
+  margin: 20px auto;
+  width: 88%; /* Default width to be responsive */
+  border: 1px solid black;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  gap: 20px;
+}
+
+/* Heading and Details */
+#currentWorkout {
+  margin-bottom: 10px;
+  color: #f1f1f1; /* Light text for better contrast */
+}
+
+#workout-details {
+  margin: 5px 0;
+  color: #f1f1f1;
+}
+
+/* Flexbox for inner content */
+.current-workout {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap when needed */
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Add spacing between items */
+}
+
+/* List Styles */
+.current-workout ul {
+  display: flex;
+  flex-wrap: wrap; /* Ensure list items wrap on smaller screens */
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+}
+
+.current-workout li {
+  background-color: #262626;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #f1f1f1;
+}
+
+/* Media Queries for Responsive Adjustments */
+@media (max-width: 768px) {
+  #current-workout {
+    width: 100%; /* Full width on smaller devices */
+    padding: 15px;
+  }
+
   .current-workout {
-    display: flex; /* Use flexbox to arrange items in a row */
-    flex-direction: row; /* Ensure items are in a row */
-    justify-content: center; /* Space out items evenly with space around them */
-    align-items: center; /* Align items vertically in the center */
-    background-color: #121212;
-    padding: 10px 20px; /* Add some padding for aesthetics */
-    margin: 20px auto;
-    width: 90%; /* Adjust the width of the section */
-    border: 1px solid black;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
-    gap: 20px; /* Add spacing between the flex items */
-
-  }
-  .current-workout div {
-    flex: 1; /* Ensure each part takes equal space */
-    
-  }
-  
-  .current-workout h2 {
-    margin-bottom: 10px;
-    color: #262626;
-  }
-
-  .current-workout p {
-    margin: 5px 0;
-    color: #262626;
-    display: inline-block;
-     
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Adjust spacing */
   }
 
   .current-workout ul {
-    display: flex; /* Use flexbox to align items in a single row */
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-    gap: 20px; /* Add space between list items */
+    justify-content: center;
   }
-  
+
   .current-workout li {
-    background-color: #262626; /* Optional: Add a background to each list item */
-    padding: 10px 15px; /* Add padding for aesthetics */
-    border-radius: 5px; /* Round the edges of list items */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    width: 100%; /* Ensure list items take full width */
+    text-align: center;
   }
+}
+
+@media (max-width: 480px) {
+  #currentWorkout {
+    font-size: 1.2rem; /* Adjust heading size for smaller screens */
+  }
+
+  #workout-details {
+    font-size: 1rem; /* Adjust text size */
+  }
+
+  .current-workout li {
+    padding: 8px 10px; /* Reduce padding for smaller screens */
+  }
+}
   
 /* Default list item style */
 .toggle-set {
@@ -199,4 +246,18 @@ button {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.copyright {
+  position: fixed; /* Fixes the element at a specific position */
+  bottom: 0; /* Anchors it to the bottom of the viewport */
+  left: 0; /* Aligns it to the left of the viewport */
+  width: 100%; /* Ensures it spans the entire width of the page */
+  background-color: #050505; /* Background color for better visibility */
+  color: #fff; /* White text for contrast */
+  text-align: center; /* Centers the text */
+  padding: 10px 0; /* Adds some padding for better appearance */
+  font-size: 14px; /* Adjust font size for readability */
+  z-index: 1000; /* Ensures it appears above other elements */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for a raised effect */
 }
