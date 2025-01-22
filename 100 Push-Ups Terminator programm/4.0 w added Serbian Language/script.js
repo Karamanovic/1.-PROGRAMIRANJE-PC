@@ -31,16 +31,13 @@ const days = [
     { day: 30, sets: [100], rest: false },
     // Repeat the pattern as needed up to your desired number of days
   ];
-  
-  document.getElementById("scrollToStopwatch").addEventListener("click", function (event) {
-    event.preventDefault();
-    document.getElementById("stopwatch").scrollIntoView({ behavior: "smooth" });
-  });
-  
-  // Scroll to Stopwatch
-document.getElementById("scrollToStopwatch").addEventListener("click", function (event) {
+
+ 
+    
+  // Scroll to Current Workout Day
+document.getElementById("scrollToCurrentWorkout").addEventListener("click", function (event) {
   event.preventDefault();
-  document.getElementById("stopwatch").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("current-workout").scrollIntoView({ behavior: "smooth" });
 });
 
 // Fetch completed days from local storage
@@ -250,23 +247,25 @@ const translations = {
     title: "100 Push-Ups Challenge Tracker",
     mark: "Complete each day's push-up sets, rest every 6th day. Click 'Complete' to mark a day, and 'Undo' to reset.",
     restNote: "REST 60 SECONDS BETWEEN EACH SET (LONGER IF REQUIRED)",
-    scrollNote: "Scroll down or click here to go to Stopwatch and Current Workout Day.",
+    scrollNote: "Scroll down or click here to go to Current Workout Day and Stopwatch.",
     currentWorkout: "Current Workout Day",
     day: "Day",
     pushUpsToDo: "Push-ups to do",
-    pushUps: "push-ups",
-    sets: "Sets",  
+     sets: "Sets",  
     actions: "Actions", 
     welcomeMessage: "100 Push-Ups Challenge Tracker",  // Add translation
     markText: "Complete each day's push-up sets, rest every 6th day. Click 'Complete' to mark a day, and 'Undo' to reset.",  // Add translation
     restNoteText: "REST 60 SECONDS BETWEEN EACH SET (LONGER IF REQUIRED)",  // Add translation
-    scrollNoteText: "Scroll down or click here to go to Stopwatch and Current Workout Day.",  // Add translation
+    scrollNoteText: "Scroll down or click here to go to Current Workout Day and Stopwatch.  ",  // Add translation
     scrollText: "Scroll down or ",
     linkText: "click here",
-    scrollEnd: " to go to Stopwatch and Current Workout Day.",
+    scrollEnd: " to go to Current Workout Day and Stopwatch.",
     stopwatchText: "Stopwatch",
     motivated: "Feeling unmotivated? Try using some of the following",
-    
+    setText: "Set",
+    pushUpsText: "push-ups",
+    textLink: " ",
+            
   },
   sr: {
     welcome: "Dobrodošli u vaš pratilac vežbanja!",
@@ -281,11 +280,10 @@ const translations = {
     title: "100 Push-Ups Challenge Tracker",
     mark: "Završite setove sklekova svakog dana, odmorite svaki 6. dan. Pritisnite 'Završi' da označite dan kao završen i 'Poništi' da resetujete.",
     restNote: "ODMARATE 60 SEKUNDI IZMEĐU SVAKOG SETA (DUŽE AKO JE POTREBNO)",
-    scrollNote: "Pomaknite se dole ili kliknite ovde da idete na štopericu i trenutni dan treninga.",
+    scrollNote: "Pomaknite se dole ili kliknite ovde da idete na trenutni dan treninga i štopericu.",
     currentWorkout: "Trenutni dan treninga",
     day: "Dan",
     pushUpsToDo: "Sklekovi za uraditi",
-    pushUps: "Sklekovi",
     sets: "Setovi",  
     actions: "Akcije",
     welcomeMessage: "100 Sklekova Izazov",  // Add translation
@@ -297,9 +295,13 @@ const translations = {
     scrollEnd: " da idete na štopericu i trenutni dan treninga.",
     stopwatchText: "Štoperica",
     motivated: "Nemate motivaciju? Probajte sledeću plej listu!",
-   
-    },
+    setText: "Serija",
+    pushUpsText: "sklekovi",
+    textLink: " ",
+           },
 };
+
+
 
 // Toggle language function
 function toggleLanguage() {
@@ -322,19 +324,24 @@ document.getElementById("rest-note").textContent =
 document.getElementById("scrollText").textContent =
   translations[currentLanguage].scrollText;
 
-  document.getElementById("scrollToStopwatch").textContent = 
+  document.getElementById("scrollToCurrentWorkout").textContent = 
   translations[currentLanguage].linkText;
 
   document.getElementById("scrollEnd").textContent = 
   translations[currentLanguage].scrollEnd;  
 
   document.getElementById("currentWorkout").textContent = 
-  translations[currentLanguage].currentWorkout; 
+  translations[currentLanguage].currentWorkout;
 
   document.getElementById("stopwatchText").textContent = 
-  translations[currentLanguage].stopwatchText;  
+  translations[currentLanguage].stopwatchText; motivated
 
-  
+  document.getElementById("motivated").innerHTML = 
+  translations[currentLanguage].motivated + ' ' + 
+  translations[currentLanguage].textLink + 
+  ' <a href="https://www.youtube.com/watch?v=ywCVSrbJXFY&t=1030s" target="_blank" rel="noopener noreferrer">Phonk Workout Music!</a>';
+
+   
   
   // Update table headers 
    document.getElementById("day-header").textContent = translations[currentLanguage].day;
@@ -443,3 +450,4 @@ function updateCurrentWorkout() {
 
   currentWorkoutTable.appendChild(row);
 }
+
