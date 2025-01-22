@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Learning Timer</title>
-    <style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -59,16 +59,61 @@
       background-color: #cccccc;
       cursor: not-allowed;
     }
+
+    .progress-bar {
+      margin: 20px auto;
+      width: 80%;
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      background-color: #007bff;
+      transition: width 0.5s ease;
+    }
+
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .dark-mode .timer-container {
+      background-color: #333;
+      color: #fff;
+    }
+    .copyright {
+  position: fixed; /* Fixes the element at a specific position */
+  bottom: 0; /* Anchors it to the bottom of the viewport */
+  left: 0; /* Aligns it to the left of the viewport */
+  width: 100%; /* Ensures it spans the entire width of the page */
+  background-color: #050505; /* Background color for better visibility */
+  color: #fff; /* White text for contrast */
+  text-align: center; /* Centers the text */
+  padding: 10px 0; /* Adds some padding for better appearance */
+  font-size: 14px; /* Adjust font size for readability */
+  z-index: 1000; /* Ensures it appears above other elements */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for a raised effect */
+}
+
   </style>
 </head>
 <body>
   <div class="timer-container">
     <h1>Learning Timer</h1>
     <div class="time-display" id="timeDisplay">00:00:00</div>
+    <div class="progress-bar">
+      <div class="progress-bar-inner" id="progressBar"></div>
+    </div>
     <div class="controls">
       <button id="startButton">Start</button>
       <button id="pauseButton" disabled>Pause</button>
       <button id="resetButton" disabled>Reset</button>
+      <button id="toggleDarkMode">Toggle Dark Mode</button>
     </div>
   </div>
 
@@ -76,11 +121,14 @@
     let timerInterval;
     let elapsedTime = parseInt(localStorage.getItem('elapsedTime')) || 0;
     let isRunning = false;
-
     const timeDisplay = document.getElementById('timeDisplay');
     const startButton = document.getElementById('startButton');
     const pauseButton = document.getElementById('pauseButton');
     const resetButton = document.getElementById('resetButton');
+    const progressBar = document.getElementById('progressBar');
+    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+
+    const GOAL_SECONDS = 8 * 3600; // 8 hours as a goal
 
     function updateDisplay() {
       const hours = Math.floor(elapsedTime / 3600);
@@ -89,6 +137,10 @@
 
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
       timeDisplay.textContent = formattedTime;
+
+      // Update progress bar
+      const progress = Math.min((elapsedTime / GOAL_SECONDS) * 100, 100);
+      progressBar.style.width = progress + '%';
     }
 
     function startTimer() {
@@ -127,27 +179,25 @@
       pauseButton.disabled = true;
       resetButton.disabled = true;
     }
-    .copyright {
-  position: fixed; /* Fixes the element at a specific position */
-  bottom: 0; /* Anchors it to the bottom of the viewport */
-  left: 0; /* Aligns it to the left of the viewport */
-  width: 100%; /* Ensures it spans the entire width of the page */
-  background-color: #050505; /* Background color for better visibility */
-  color: #fff; /* White text for contrast */
-  text-align: center; /* Centers the text */
-  padding: 10px 0; /* Adds some padding for better appearance */
-  font-size: 14px; /* Adjust font size for readability */
-  z-index: 1000; /* Ensures it appears above other elements */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for a raised effect */
-}
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
 
     startButton.addEventListener('click', startTimer);
     pauseButton.addEventListener('click', pauseTimer);
     resetButton.addEventListener('click', resetTimer);
+    toggleDarkModeButton.addEventListener('click', toggleDarkMode);
 
-    updateDisplay(); // Initialize display
+    // Initialize display
+    updateDisplay();
+
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
   </script>
-  <br>
   <footer class="copyright">
     © Dejan Karamanović. All rights reserved.
 </body>
