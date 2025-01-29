@@ -130,6 +130,9 @@
 
     const GOAL_SECONDS = 8 * 3600; // 8 hours as a goal
 
+    const audio = new Audio('beep-07.wav');
+
+
     function updateDisplay() {
       const hours = Math.floor(elapsedTime / 3600);
       const minutes = Math.floor((elapsedTime % 3600) / 60);
@@ -197,6 +200,55 @@
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
     }
+
+    // Play sound when goal is reached
+    function startTimer() {
+  if (isRunning) return;
+  isRunning = true;
+
+  audio.play(); // Play sound when the timer starts
+
+  timerInterval = setInterval(() => {
+    elapsedTime++;
+    localStorage.setItem('elapsedTime', elapsedTime);
+    updateDisplay();
+    if (elapsedTime % 3600 === 0) {
+      audio.play(); // Play sound notification every hour
+    }
+  }, 1000);
+
+  startButton.disabled = true;
+  pauseButton.disabled = false;
+  resetButton.disabled = false;
+}
+
+const pauseAudio = new Audio('beep-06.wav'); // Load the pause sound
+
+function pauseTimer() {
+  if (!isRunning) return;
+  isRunning = false;
+
+  clearInterval(timerInterval);
+  startButton.disabled = false;
+  pauseButton.disabled = true;
+  pauseAudio.play(); // Play the sound when paused
+}
+const resetAudio = new Audio('beep-05.wav'); // Load the reset sound
+
+function resetTimer() {
+  isRunning = false;
+
+  clearInterval(timerInterval);
+  elapsedTime = 0;
+  localStorage.setItem('elapsedTime', elapsedTime);
+  updateDisplay();
+
+  startButton.disabled = false;
+  pauseButton.disabled = true;
+  resetButton.disabled = true;
+
+  resetAudio.play(); // Play the sound when reset
+}
   </script>
   <footer class="copyright">
     © Dejan Karamanović. All rights reserved.

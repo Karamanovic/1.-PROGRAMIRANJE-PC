@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MJESEČNE OBAVEZE</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <br>
+    <h1>MJESEČNI TROŠKOVI</h1>
+      <div class="container">
+      <!-- Expense Tracker -->
+      <main class="tracker">
+        <header>
+          <div>
+            <h5>Stanje na računu</h5>
+            <span id="balance">0.00 KM</span>
+          </div>
+          <div>
+            <h5>Prihodi</h5>
+            <span id="income">0.00 KM</span>
+          </div>
+          <div>
+            <h5>Rashodi</h5>
+            <span id="expense">0.00 KM</span>
+          </div>
+        </header>
+
+        <section>
+          <h3>Transakcije</h3>
+          <ul id="transactionList" data-placeholder="No transactions."></ul>
+        </section>
+
+        <section>
+          <h3>Dodaj Transakciju</h3>
+          <form id="transactionForm">
+            <div>
+              <label for="type">
+                <input type="checkbox" name="type" id="type" checked />
+                <div class="option" data-option="prihodi">
+                  <span>Troškovi</span>
+                </div>
+              </label>
+            </div>
+            <div>
+              <label for="name">Naziv Prihoda/Troška</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+            <div>
+              <label for="amount">Iznos</label>
+              <input
+                type="number"
+                name="amount"
+                value="0"
+                min="0"
+                step="any"
+                inputmode="decimal"
+                id="amount"
+                required
+                onfocus="this.select()"
+              />
+            </div>
+            <div>
+              <label for="date">Datum</label>
+              <input type="date" name="date" id="date" required />
+            </div>
+            <button type="submit">Upiši</button>
+          </form>
+        </section>
+      </main>
+
+      <!-- Expense Breakdown -->
+      <aside class="breakdown">
+        <h3>Pregled troškova</h3>
+        <div class="chart-container">
+          <canvas id="expenseChart"></canvas>
+        </div>
+      </aside>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+       
+    <footer class="copyright">
+      © Dejan Karamanović. All rights reserved.
+    </footer>
+  </body>
+</html>
+
+
