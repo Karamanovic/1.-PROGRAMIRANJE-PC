@@ -1,0 +1,21 @@
+ .copyright {
+  position: fixed; /* Fixes the element at a specific position */
+  bottom: 0; /* Anchors it to the bottom of the viewport */
+  left: 0; /* Aligns it to the left of the viewport */
+  width: 100%; /* Ensures it spans the entire width of the page */
+  background-color: #050505; /* Background color for better visibility */
+  color: #fff; /* White text for contrast */
+  text-align: center; /* Centers the text */
+  padding: 10px 0; /* Adds some padding for better appearance */
+  font-size: 14px; /* Adjust font size for readability */
+  z-index: 1000; /* Ensures it appears above other elements */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for a raised effect */
+}
+
+<footer class="copyright">
+    © Dejan Karamanović. All rights reserved.
+
+
+background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),
+    url(slika1.jpg);
+    background-position: center;
