@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home Electro Keeper — Purchase & Service Tracker</title>
+  <meta name="description" content="Track purchase dates, warranty and service history for home electrical appliances. Offline-first single-file app." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; /* dark slate */
+      --card:#0b1220;
+      --muted:#9aa7bd;
+      --accent:#06b6d4;
+      --glass: rgba(255,255,255,0.03);
+      --success:#10b981;
+      --danger:#ef4444;
+      --radius:12px;
+      color-scheme: dark;
+      font-family: 'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071126 0%, #071422 60%);color:#e6eef6}
+    header{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{font-weight:700;font-size:1.15rem;letter-spacing:0.2px}
+    .sub{color:var(--muted);font-size:0.85rem}
+    .container{display:grid;grid-template-columns:320px 1fr;gap:18px;padding:18px}
+    .sidebar{background:var(--card);padding:12px;border-radius:var(--radius);min-height:60vh}
+    .main{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:var(--radius);min-height:60vh}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:10px;color:inherit;cursor:pointer}
+    button.primary{background:linear-gradient(90deg,var(--accent),#0ea5b6);border:none;color:#002;box-shadow:0 6px 18px rgba(6,182,212,0.08)}
+    input[type=text],input[type=date],input[type=number],select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .device-list{margin-top:12px;display:flex;flex-direction:column;gap:8px;max-height:62vh;overflow:auto;padding-right:6px}
+    .device-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;background:var(--glass);cursor:pointer}
+    .device-item.selected{outline:2px solid rgba(6,182,212,0.12);box-shadow:inset 0 0 18px rgba(6,182,212,0.02)}
+    .small{font-size:0.85rem;color:var(--muted)}
+    .empty{opacity:0.6;text-align:center;padding:36px;border-radius:8px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:8px}
+    .service-list{display:flex;flex-direction:column;gap:8px}
+    .service-item{padding:8px;border-radius:8px;background:rgba(255,255,255,0.012)}
+    .muted{color:var(--muted)}
+    .tools{display:flex;flex-wrap:wrap;gap:6px}
+    .tag{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:0.8rem}
+    footer{padding:18px;color:var(--muted);font-size:0.9rem;text-align:center}
+    .help{font-size:0.9rem;color:var(--muted);margin-top:10px}
+    .search{display:flex;gap:8px}
+    .file-input{display:none}
+    @media (max-width:900px){.container{grid-template-columns:1fr;}.sidebar{order:2}.main{order:1}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Home Electro Keeper</div>
+    <div class="sub">Purchase + Service tracker — offline-first</div>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <button id="btnBackup">Export JSON</button>
+      <button id="btnCSV">Export CSV</button>
+      <label for="importFile" style="display:inline-block"><button id="btnImport">Import</button></label>
+      <input id="importFile" class="file-input" type="file" accept="application/json" />
+      <button id="btnNewDevice" class="primary">+ Add device</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Search by name, brand, model..." />
+        <select id="filterCat" title="Filter category">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div class="device-list" id="deviceList"></div>
+      <div class="help">Tip: click a device to view details. Use Export to backup your data.</div>
+    </aside>
+
+    <section class="main">
+      <div id="mainContent">
+        <div class="empty" id="emptyState">No device selected — pick a device or add a new one.</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Built for quick tracking of purchase dates, warranties and service history. Export JSON/CSV backup. ICS reminder generation available per service entry.
+  </footer>
+
+  <!-- Hidden forms & templates -->
+  <dialog id="deviceDialog">
+    <form method="dialog" onsubmit="return false" style="width:520px;max-width:95vw">
+      <h3 id="deviceDialogTitle">Add device</h3>
+      <div class="grid-2">
+        <div>
+          <label>Name</label>
+          <input id="d_name" type="text" placeholder="e.g. Living room TV" />
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="d_category"></select>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:8px">
+        <div>
+          <label>Brand</label>
+          <input id="d_brand" type="text"/>
+        </div>
+        <div>
+          <label>Model / Serial</label>
+          <input id="d_model" type="text"/>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:8px">
+        <div>
+          <label>Purchase date</label>
+          <input id="d_purchase" type="date" />
+        </div>
+        <div>
+          <label>Price (local)</label>
+          <input id="d_price" type="number" step="0.01" />
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label>Warranty months (leave empty if none)</label>
+        <input id="d_warranty" type="number" />
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px;align-items:center">
+        <label style="width:110px">Photo / manual</label>
+        <input id="d_file" type="file" accept="image/*,.pdf"/>
+        <div id="d_file_name" class="small muted"></div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button id="deviceCancel">Cancel</button>
+        <button id="deviceSave" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="serviceDialog">
+    <form method="dialog" onsubmit="return false" style="width:520px;max-width:95vw">
+      <h3 id="serviceTitle">Add service entry</h3>
+      <div>
+        <label>Service date</label>
+        <input id="s_date" type="date" />
+      </div>
+      <div style="margin-top:8px">
+        <label>Description</label>
+        <textarea id="s_desc" rows="3"></textarea>
+      </div>
+      <div class="grid-2" style="margin-top:8px">
+        <div>
+          <label>Performed by</label>
+          <select id="s_by"><option value="self">Self</option><option value="pro">Professional</option></select>
+        </div>
+        <div>
+          <label>Difficulty</label>
+          <select id="s_diff"><option>Easy</option><option>Medium</option><option>Hard</option><option>Expert (pro recommended)</option></select>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label>Tools required (comma separated)</label>
+        <input id="s_tools" type="text" placeholder="multimeter, screwdriver, adjustable wrench" />
+      </div>
+      <div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end">
+        <button id="serviceCancel">Cancel</button>
+        <button id="serviceSave" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    /* Home Electro Keeper - single-file app
+       - Stores data in localStorage under key APP_KEY
+       - JSON export/import and CSV export
+       - Per-device service history and ICS event download for reminders
+       - DIY guides per category (difficulty + tool list)
+    */
+    const APP_KEY = 'homeElectroKeeper_v1';
+
+    // Categories + sample DIY guides (difficulty and tools). Mark tasks that require a pro.
+    const CATEGORY_GUIDES = {
+      'Television / Monitor':{
+        diy: 'Basic cleaning, firmware update, check HDMI and power connections. Avoid opening CRTs and high-voltage areas. For panel/backlight replacement, consider pro.',
+        difficulty: 'Easy - Medium',
+        tools: ['microfiber cloth','screwdriver set','compressed air','multimeter (basic)'],
+        proRequired: false
+      },
+      'Boiler / Central heating':{
+        diy: 'Annual bleed of radiators, check pressure, flush small debris, inspect visible pipes. For gas valves, burners, or leak repair — hire a licensed technician.',
+        difficulty: 'Medium - Pro recommended for gas work',
+        tools: ['pressure gauge','wrenches','screwdriver','flashlight'],
+        proRequired: true
+      },
+      'Electric stove / Oven':{
+        diy: 'Clean burners, check connections, replace knobs and simple fuses. For element replacement or internal wiring, be cautious and isolate mains first.',
+        difficulty: 'Medium',
+        tools: ['screwdriver','multimeter','insulated gloves'],
+        proRequired: false
+      },
+      'Refrigerator':{
+        diy: 'Clean condenser coils, replace door gaskets, defrost if needed. For compressor or refrigerant issues, call a refrigeration pro.',
+        difficulty: 'Easy - Medium',
+        tools: ['brush','vacuum','screwdriver','wipe cloth'],
+        proRequired: true
+      },
+      'Washing machine / Dryer':{
+        diy: 'Clean filters, check and replace hoses, balance drum, clean lint traps. For motor or electronic board issues, consider professional help.',
+        difficulty: 'Easy - Medium',
+        tools: ['adjustable wrench','screwdriver','bucket'],
+        proRequired: false
+      },
+      'Dishwasher':{
+        diy: 'Clean filters, spray arms, check hoses and seals. For pump or electronic issues - pro.',
+        difficulty: 'Easy - Medium',
+        tools: ['screwdriver','bucket','replacement hoses'],
+        proRequired: false
+      },
+      'Air conditioner (room/split)':{
+        diy: 'Clean/replace filters, clean outdoor unit coils. Refrigerant handling requires certified technician.',
+        difficulty: 'Medium - Pro for refrigerant work',
+        tools: ['soft brush','coil cleaner','vacuum'],
+        proRequired: true
+      },
+      'Water heater (electric/gas)':{
+        diy: 'Flush the tank annually to remove sediment, check pressure relief valve. For gas components or elements replacement, pro recommended.',
+        difficulty: 'Medium',
+        tools: ['hose','bucket','wrench'],
+        proRequired: true
+      },
+      'Microwave':{
+        diy: 'Clean and test operation. Do not attempt to repair magnetron or high-voltage parts yourself.',
+        difficulty: 'Easy (cleaning only)',
+        tools: ['soft cloth','screwdriver (for external)'],
+        proRequired: true
+      },
+      'Router / Network gear':{
+        diy: 'Firmware updates, reset, change configuration and password. Replace antennas or power adapters if faulty.',
+        difficulty: 'Easy',
+        tools: ['screwdriver','laptop/phone to configure'],
+        proRequired: false
+      },
+      'UPS / Inverter / Batteries':{
+        diy: 'Visual inspection, battery terminals cleaning, firmware updates. Battery replacement and high current wiring should be handled by professionals with proper safety.',
+        difficulty: 'Medium - Pro for battery swap',
+        tools: ['screwdriver','wrenches','safety gloves'],
+        proRequired: true
+      },
+      'Small appliances (vacuum, kettle, toaster)':{
+        diy: 'Cleaning, filter replacement. For internal repairs, watch for mains wiring.',
+        difficulty: 'Easy',
+        tools: ['screwdriver','soft brush'],
+        proRequired: false
+      },
+      'Lighting fixtures':{
+        diy: 'Replace bulbs, clean fixtures, check lamp holders and switches. For high-voltage wiring changes, hire an electrician.',
+        difficulty: 'Easy',
+        tools: ['ladder','screwdriver','voltage tester'],
+        proRequired: true
+      },
+      'Other':{diy:'General maintenance tasks (cleaning, tightening fasteners, small replacements).',difficulty:'Easy',tools:['basic toolkit'],proRequired:false}
+    };
+
+    // Sample data - loaded first-run if nothing is in storage
+    const SAMPLE_DATA = {
+      devices:[
+        {id:uid(),name:'Living room TV',category:'Television / Monitor',brand:'Samsung',model:'QE55X',serial:'TV-12345',purchaseDate:'2023-03-12',price:799.99,warrantyMonths:24,notes:'Wall-mounted',files:[],serviceHistory:[{id:uid(),serviceDate:'2024-09-01',description:'Firmware update + cleaned vents',performedBy:'self',difficulty:'Easy',toolsRequired:['microfiber cloth']}],createdAt:Date.now()},
+        {id:uid(),name:'Gas boiler',category:'Boiler / Central heating',brand:'Vaillant',model:'ecoVIT',serial:'BOIL-9988',purchaseDate:'2019-11-05',price:1200,warrantyMonths:24,notes:'Annual service recommended',files:[],serviceHistory:[],createdAt:Date.now()},
+        {id:uid(),name:'Kitchen fridge',category:'Refrigerator',brand:'LG',model:'CoolX',serial:'FR-3344',purchaseDate:'2021-06-20',price:499,warrantyMonths:24,notes:'Top-freezer',files:[],serviceHistory:[],createdAt:Date.now()},
+      ]
+    };
+
+    // Utility: unique id
+    function uid(prefix='id'){return prefix + '_' + Math.random().toString(36).slice(2,9)}
+
+    // Persistence
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(APP_KEY);
+        if(!raw) return JSON.parse(JSON.stringify(SAMPLE_DATA));
+        return JSON.parse(raw);
+      }catch(e){console.error(e);return JSON.parse(JSON.stringify(SAMPLE_DATA))}
+    }
+    function saveState(state){localStorage.setItem(APP_KEY,JSON.stringify(state))}
+
+    // App state
+    let state = loadState();
+    let selectedDeviceId = null;
+
+    // UI elements
+    const deviceListEl = document.getElementById('deviceList');
+    const mainContent = document.getElementById('mainContent');
+    const searchInput = document.getElementById('searchInput');
+    const filterCat = document.getElementById('filterCat');
+
+    function populateCategoryFilter(){
+      const cats = new Set(state.devices.map(d=>d.category || 'Other'));
+      // also include categories from guides
+      Object.keys(CATEGORY_GUIDES).forEach(c=>cats.add(c));
+      // clear
+      filterCat.innerHTML = '<option value="">All</option>';
+      Array.from(cats).sort().forEach(c=>{
+        const opt = document.createElement('option');opt.value=c;opt.textContent=c;filterCat.appendChild(opt);
+      })
+      // Also fill device dialog categories
+      const dcat = document.getElementById('d_category'); if(dcat){dcat.innerHTML='';Object.keys(CATEGORY_GUIDES).forEach(c=>{const o=document.createEleme
