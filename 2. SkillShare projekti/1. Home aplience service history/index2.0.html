@@ -1128,6 +1128,98 @@
                     steps: 'Use test patterns to adjust brightness, contrast, color temperature for optimal viewing.',
                     professional: false
                 }
+            ],
+            'Washing Machine': [
+                {
+                    title: 'Clean washing machine filter',
+                    difficulty: 'Easy',
+                    tools: ['None'],
+                    steps: 'Locate the filter (usually at bottom front), place towel underneath, slowly turn off water supply, unscrew filter counterclockwise, clean debris, reinstall and turn water back on.',
+                    professional: false
+                },
+                {
+                    title: 'Clean detergent dispenser',
+                    difficulty: 'Easy',
+                    tools: ['Vinegar', 'Soft brush'],
+                    steps: 'Remove dispenser drawer, soak in warm vinegar solution, scrub with soft brush to remove buildup, rinse thoroughly and dry before reinstalling.',
+                    professional: false
+                },
+                {
+                    title: 'Check washing machine hoses',
+                    difficulty: 'Easy',
+                    tools: ['None'],
+                    steps: 'Turn off water supply, inspect inlet hoses for cracks or bulges, check connections for leaks, tighten if needed, replace hoses every 5 years.',
+                    professional: false
+                }
+            ],
+            'Dishwasher': [
+                {
+                    title: 'Clean dishwasher filter',
+                    difficulty: 'Easy',
+                    tools: ['None'],
+                    steps: 'Remove bottom dish rack, locate and unscrew the filter assembly, rinse under running water to remove debris, clean any mesh screens, and reinstall.',
+                    professional: false
+                },
+                {
+                    title: 'Clean dishwasher spray arms',
+                    difficulty: 'Easy',
+                    tools: ['Vinegar', 'Soft brush'],
+                    steps: 'Remove spray arms by unscrewing, soak in vinegar solution to remove mineral deposits, scrub gently with soft brush, rinse and reinstall.',
+                    professional: false
+                },
+                {
+                    title: 'Check dishwasher door seal',
+                    difficulty: 'Easy',
+                    tools: ['None'],
+                    steps: 'Inspect door gasket for cracks or debris, clean with mild soap and water, ensure it seals properly when door is closed.',
+                    professional: false
+                }
+            ],
+            'Oven': [
+                {
+                    title: 'Clean oven racks',
+                    difficulty: 'Easy',
+                    tools: ['Oven cleaner', 'Scrub brush', 'Gloves'],
+                    steps: 'Remove racks, soak in warm soapy water or use oven cleaner, scrub to remove baked-on grease, rinse thoroughly and dry before reinstalling.',
+                    professional: false
+                },
+                {
+                    title: 'Clean oven interior',
+                    difficulty: 'Medium',
+                    tools: ['Oven cleaner', 'Scrub brush', 'Gloves', 'Plastic scraper'],
+                    steps: 'Remove racks, apply oven cleaner, let sit for recommended time, scrub surfaces, wipe clean, ensure proper ventilation during cleaning.',
+                    professional: false
+                },
+                {
+                    title: 'Check oven temperature calibration',
+                    difficulty: 'Easy',
+                    tools: ['Oven thermometer'],
+                    steps: 'Place thermometer in center of oven, set to 350°F, check reading after 20 minutes, adjust calibration if needed through control panel.',
+                    professional: false
+                }
+            ],
+            'Induction Plate': [
+                {
+                    title: 'Clean induction cooktop surface',
+                    difficulty: 'Easy',
+                    tools: ['Ceramic cooktop cleaner', 'Microfiber cloth'],
+                    steps: 'Ensure surface is cool, apply cleaner to cloth (not directly on surface), wipe in circular motions, buff with dry cloth for shine.',
+                    professional: false
+                },
+                {
+                    title: 'Check induction coils',
+                    difficulty: 'Medium',
+                    tools: ['Multimeter', 'Screwdriver'],
+                    steps: 'Turn off power, remove cooktop if accessible, test continuity of heating coils with multimeter, inspect for cracks or damage.',
+                    professional: false
+                },
+                {
+                    title: 'Calibrate touch controls',
+                    difficulty: 'Easy',
+                    tools: ['None'],
+                    steps: 'Enter service mode through control panel (refer to manual), run calibration routine, test all touch zones for responsiveness.',
+                    professional: false
+                }
             ]
         };
 
@@ -1821,7 +1913,7 @@
                             ${this.renderServiceHistory(device)}
                         </div>
 
-                        ${this.renderDIYGuide(device.category)}
+                        ${this.renderDIYGuide(device)}
                     </div>
                 `;
             }
@@ -1863,9 +1955,40 @@
                 return `<div class="service-list">${serviceItems}</div>`;
             }
 
-            renderDIYGuide(category) {
-                const guides = DIY_GUIDES[category] || [];
-                
+            renderDIYGuide(device) {
+                let guides = [];
+                const category = device.category;
+                const name = device.name.toLowerCase();
+
+                // For Kitchen Appliances, check device name to show specific guides
+                if (category === 'Kitchen Appliances') {
+                    if (name.includes('dishwasher') || name.includes('mašina za pranje suđa')) {
+                        guides = DIY_GUIDES['Dishwasher'] || [];
+                    } else if (name.includes('oven') || name.includes('pečnica') || name.includes('pećnica')) {
+                        guides = DIY_GUIDES['Oven'] || [];
+                    } else if (name.includes('induction') || name.includes('indukciona') || name.includes('ploča')) {
+                        guides = DIY_GUIDES['Induction Plate'] || [];
+                    } else if (name.includes('hood') || name.includes('kitchen hood')) {
+                        // Show hood-specific guides from Kitchen Appliances
+                        guides = DIY_GUIDES['Kitchen Appliances'].filter(guide =>
+                            guide.title.toLowerCase().includes('hood') ||
+                            guide.title.toLowerCase().includes('fan')
+                        );
+                    } else {
+                        // Show general kitchen appliance guides
+                        guides = DIY_GUIDES[category] || [];
+                    }
+                } else if (category === 'Laundry') {
+                    if (name.includes('washing machine') || name.includes('weš mašina') || name.includes('veš mašina')) {
+                        guides = DIY_GUIDES['Washing Machine'] || [];
+                    } else {
+                        guides = DIY_GUIDES[category] || [];
+                    }
+                } else {
+                    // For other categories, use category-based lookup
+                    guides = DIY_GUIDES[category] || [];
+                }
+
                 if (guides.length === 0) {
                     return '';
                 }

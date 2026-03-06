@@ -13,8 +13,92 @@
       "notes": "registrovano dana 06.03.2026.",
       "files": [],
       "serviceHistory": []
+    },
+    {
+      "id": "device_1772819398425_5vgewfl5v",
+      "name": "Pećnica",
+      "category": "Kitchen Appliances",
+      "brand": "Whirpool",
+      "model": "OMK58HU1B",
+      "serial": "392519022106",
+      "purchaseDate": "2025-10-30",
+      "price": 413.1,
+      "warrantyMonths": 120,
+      "notes": "REGISTROVANO DANA 06.03.2026. GODINE \nprod.N. : 8599 9165 9940 ",
+      "files": [],
+      "serviceHistory": []
+    },
+    {
+      "id": "device_1772819478462_vhwtbqtfl",
+      "name": "Indukciona ploča",
+      "category": "Kitchen Appliances",
+      "brand": "Whirpool",
+      "model": "WB S2560 ",
+      "serial": "",
+      "purchaseDate": "20225-10-30",
+      "price": 503.1,
+      "warrantyMonths": 60,
+      "notes": "",
+      "files": [],
+      "serviceHistory": []
+    },
+    {
+      "id": "device_1772819549085_0axdv2z6j",
+      "name": "Napa",
+      "category": "Kitchen Appliances",
+      "brand": "Turboair napa ",
+      "model": "LEI GR/A/52",
+      "serial": "",
+      "purchaseDate": "2025-10-30",
+      "price": 165,
+      "warrantyMonths": 60,
+      "notes": "",
+      "files": [],
+      "serviceHistory": []
+    },
+    {
+      "id": "device_1772819681463_y62x2xg34",
+      "name": "Veš mašina ",
+      "category": "Laundry",
+      "brand": "LG",
+      "model": "F4X1008NWK",
+      "serial": "506PNCY9U691",
+      "purchaseDate": "2025-01-11",
+      "price": 750,
+      "warrantyMonths": 60,
+      "notes": "",
+      "files": [],
+      "serviceHistory": []
+    },
+    {
+      "id": "device_1772819849354_tddo0ytmp",
+      "name": "Frižider ",
+      "category": "Kitchen Appliances",
+      "brand": "Beko",
+      "model": "K60340",
+      "serial": "14-1178563-10",
+      "purchaseDate": "2024-01-29",
+      "price": 350,
+      "warrantyMonths": 1,
+      "notes": "",
+      "files": [],
+      "serviceHistory": []
+    },
+    {
+      "id": "device_1772825624537_giedzfefs",
+      "name": "Inverter Klima",
+      "category": "Electronics",
+      "brand": "Hisense ",
+      "model": "LaB2303001",
+      "serial": "K91G4-20009695",
+      "purchaseDate": "2024-01-01",
+      "price": 1,
+      "warrantyMonths": 1,
+      "notes": "",
+      "files": [],
+      "serviceHistory": []
     }
   ],
   "version": "1.0",
-  "exportDate": "2026-03-06T17:47:55.563Z"
+  "exportDate": "2026-03-06T20:44:13.377Z"
 }
