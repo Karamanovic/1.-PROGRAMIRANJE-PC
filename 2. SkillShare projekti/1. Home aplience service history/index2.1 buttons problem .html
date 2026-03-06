@@ -369,7 +369,7 @@
 
         .add-expense-btn {
             padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 0.5rem;
@@ -378,20 +378,10 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
-            font-size: 1rem;
         }
 
         .add-expense-btn:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .add-expense-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+            background: var(--primary-dark);
         }
 
         .expenses-list {
@@ -1185,30 +1175,24 @@
             </div>
             <div class="modal-body">
                 <form id="expenseForm">
-                    <div class="form-group">
-                        <label for="expenseDevice" class="form-label">Device *</label>
-                        <select id="expenseDevice" name="expenseDevice" class="form-select" required>
-                            <option value="">-- Select a device --</option>
-                        </select>
-                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="expenseDate" class="form-label">Date *</label>
-                            <input type="date" id="expenseDate" name="expenseDate" class="form-input" required>
+                            <input type="date" id="expenseDate" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="expenseAmount" class="form-label">Amount (€) *</label>
-                            <input type="number" id="expenseAmount" name="expenseAmount" class="form-input" step="0.01" min="0" required>
+                            <input type="number" id="expenseAmount" class="form-input" step="0.01" min="0" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="expenseDescription" class="form-label">Description *</label>
-                        <input type="text" id="expenseDescription" name="expenseDescription" class="form-input" required 
+                        <input type="text" id="expenseDescription" class="form-input" required 
                                placeholder="e.g., Repair washing machine">
                     </div>
                     <div class="form-group">
                         <label for="expenseCategory" class="form-label">Category</label>
-                        <select id="expenseCategory" name="expenseCategory" class="form-select">
+                        <select id="expenseCategory" class="form-select">
                             <option value="Maintenance">Maintenance</option>
                             <option value="Repair">Repair</option>
                             <option value="Replacement">Replacement</option>
@@ -2564,45 +2548,10 @@
 
             renderCostTracker() {
                 const year = this.state.currentYear;
-                
-                // Collect all costs from service history and expenses
-                let allCosts = [];
-                let totalCost = 0;
-                
-                // Add service costs from all devices
-                this.state.devices.forEach(device => {
-                    device.serviceHistory.forEach(service => {
-                        const serviceDate = new Date(service.serviceDate);
-                        if (serviceDate.getFullYear() === year && service.cost > 0) {
-                            allCosts.push({
-                                date: service.serviceDate,
-                                amount: service.cost,
-                                description: `${device.name} - ${service.description}`,
-                                type: 'service',
-                                device: device.name
-                            });
-                            totalCost += service.cost;
-                        }
-                    });
-                });
-                
-                // Add expenses from expenses list
                 const expenses = this.state.getExpensesForYear(year);
-                expenses.forEach(expense => {
-                    allCosts.push({
-                        date: expense.date,
-                        amount: expense.amount,
-                        description: expense.description,
-                        type: 'expense',
-                        category: expense.category
-                    });
-                    totalCost += expense.amount;
-                });
-                
-                // Sort by date (newest first)
-                allCosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const totalCost = this.state.getTotalExpensesForYear(year);
 
-                this.mainTitle.textContent = `${year} Maintenance Costs`;
+                this.mainTitle.textContent = `${year} Expenses`;
                 this.contentArea.innerHTML = `
                     <div class="cost-tracker">
                         <div class="cost-header">
@@ -2620,25 +2569,30 @@
                                     <i class="fas fa-chevron-right"></i>
                                 </button>
                             </div>
+                            <button class="add-expense-btn" id="addExpenseBtn">
+                                <i class="fas fa-plus"></i>
+                                Add Expense
+                            </button>
                         </div>
 
                         <div class="expenses-list">
-                            ${allCosts.length === 0 ? `
+                            ${expenses.length === 0 ? `
                                 <div style="padding: 3rem; text-align: center; color: var(--text-secondary);">
                                     <i class="fas fa-euro-sign" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                                    <h3>No maintenance costs recorded for ${year}</h3>
-                                    <p>Costs from service history and expenses will appear here.</p>
+                                    <h3>No expenses recorded for ${year}</h3>
+                                    <p>Add your first expense to start tracking costs.</p>
                                 </div>
-                            ` : allCosts.map(cost => `
+                            ` : expenses.map(expense => `
                                 <div class="expense-item">
                                     <div class="expense-info">
-                                        <div class="expense-description">${cost.description}</div>
-                                        <div class="expense-date">${new Date(cost.date).toLocaleDateString()}</div>
-                                        ${cost.type === 'service' ? `<div style="font-size: 0.75rem; color: var(--primary-color); margin-top: 0.25rem;"><i class="fas fa-wrench"></i> Service</div>` : `<div style="font-size: 0.75rem; color: #8b5cf6; margin-top: 0.25rem;"><i class="fas fa-euro-sign"></i> ${cost.category}</div>`}
+                                        <div class="expense-description">${expense.description}</div>
+                                        <div class="expense-date">${new Date(expense.date).toLocaleDateString()}</div>
                                     </div>
-                                    <div class="expense-amount">${cost.amount.toFixed(2)} KM</div>
+                                    <div class="expense-amount">€${expense.amount.toFixed(2)}</div>
                                     <div class="expense-actions">
-                                        ${cost.type === 'expense' ? `<button class="btn delete-expense-btn" data-expense-id="${cost.id}" title="Delete expense" style="color: var(--danger-color);"><i class="fas fa-trash"></i></button>` : ''}
+                                        <button class="btn delete-expense-btn" data-expense-id="${expense.id}" title="Delete expense" style="color: var(--danger-color);">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </div>
                             `).join('')}
@@ -2646,14 +2600,19 @@
 
                         <div class="cost-summary">
                             <div class="summary-card">
-                                <div class="summary-value">${totalCost.toFixed(2)}KM</div>
+                                <div class="summary-value">€${totalCost.toFixed(2)}</div>
                                 <div class="summary-label">Total ${year} Maintenance Cost</div>
                             </div>
                         </div>
                     </div>
                 `;
+                this.contentArea.innerHTML = html;
                 
                 // Add event listeners for dynamically created elements
+                const addExpenseBtn = document.getElementById('addExpenseBtn');
+                if (addExpenseBtn) {
+                    addExpenseBtn.addEventListener('click', () => this.openExpenseModal());
+                }
                 
                 // Add event listeners for year navigation
                 const yearSelect = document.getElementById('yearSelect');
@@ -2689,20 +2648,8 @@
             openExpenseModal() {
                 this.expenseForm.reset();
                 document.getElementById('expenseDate').valueAsDate = new Date();
-                
-                // Populate device dropdown
-                const deviceSelect = document.getElementById('expenseDevice');
-                deviceSelect.innerHTML = '<option value="">-- Select a device --</option>';
-                
-                this.state.devices.forEach(device => {
-                    const option = document.createElement('option');
-                    option.value = device.id;
-                    option.textContent = device.name;
-                    deviceSelect.appendChild(option);
-                });
-                
                 this.expenseModal.classList.add('active');
-                document.getElementById('expenseDevice').focus();
+                document.getElementById('expenseDescription').focus();
             }
 
             closeExpenseModal() {
