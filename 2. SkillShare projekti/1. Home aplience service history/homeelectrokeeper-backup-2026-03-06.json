@@ -1,0 +1,20 @@
+{
+  "devices": [
+    {
+      "id": "device_1772819008697_qdo1f22g0",
+      "name": "Mašina za pranje suđa",
+      "category": "Kitchen Appliances",
+      "brand": "Whirpool",
+      "model": "FFS P8 IT WASHING MACHINE WP",
+      "serial": "452514033323",
+      "purchaseDate": "2025-10-30",
+      "price": 647.1,
+      "warrantyMonths": 120,
+      "notes": "registrovano dana 06.03.2026.",
+      "files": [],
+      "serviceHistory": []
+    }
+  ],
+  "version": "1.0",
+  "exportDate": "2026-03-06T17:47:55.563Z"
+}
