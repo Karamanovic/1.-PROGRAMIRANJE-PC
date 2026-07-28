@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+command:gitlens.welcome.showComposer<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomeElectroKeeper - Device Management System</title>
@@ -685,6 +685,205 @@
             color: var(--text-secondary);
         }
 
+        /* Predictive Maintenance Styles */
+        .predictive-maintenance-card {
+            margin-top: 2rem;
+        }
+
+        .maintenance-alert {
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(37, 99, 235, 0) 100%);
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .maintenance-status-header {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .maintenance-risk-level {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .maintenance-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .maintenance-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            background: var(--background);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .summary-card.success {
+            border-left-color: var(--success-color);
+        }
+
+        .summary-card.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .summary-card.danger {
+            border-left-color: var(--danger-color);
+        }
+
+        .summary-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-card-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .summary-card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .summary-card-description {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+
+        .dashboard-section {
+            margin-top: 2rem;
+        }
+
+        .dashboard-section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dashboard-list {
+            background: var(--surface);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .dashboard-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .dashboard-item-content {
+            flex: 1;
+        }
+
+        .dashboard-item-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .dashboard-item-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .dashboard-item-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--background);
+        }
+
+        .dashboard-empty {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .dashboard-empty i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.5;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -1016,6 +1215,10 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="nav-tabs">
+                <button class="nav-tab" id="dashboardTab" data-view="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </button>
                 <button class="nav-tab active" id="deviceManagerTab" data-view="devices">
                     <i class="fas fa-tools"></i>
                     Device Manager
@@ -1109,11 +1312,16 @@
                             <input type="number" id="warrantyMonths" class="form-input" min="0">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deviceAverageLifespan" class="form-label">Average Lifespan (years)</label>
+                            <input type="number" id="deviceAverageLifespan" class="form-input" min="0" step="0.1" placeholder="e.g., 10 for 10 years">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="deviceNotes" class="form-label">Notes</label>
                         <textarea id="deviceNotes" class="form-textarea" placeholder="Additional notes about this device..."></textarea>
                     </div>
-                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
                         <button type="button" class="btn btn-secondary" id="cancelDeviceModal">Cancel</button>
                         <button type="submit" class="btn btn-primary" id="saveDeviceBtn">Save Device</button>
                     </div>
@@ -1537,6 +1745,7 @@
                 this.purchaseDate = data.purchaseDate || '';
                 this.price = data.price || 0;
                 this.warrantyMonths = data.warrantyMonths || 0;
+                this.averageLifespan = data.averageLifespan || 0;
                 this.notes = data.notes || '';
                 this.files = data.files || [];
                 this.serviceHistory = (data.serviceHistory || []).map(s => new ServiceEntry(s));
@@ -1567,6 +1776,70 @@
                 }
             }
 
+            getDeviceAge() {
+                if (!this.purchaseDate) {
+                    return null;
+                }
+                const purchaseDate = new Date(this.purchaseDate);
+                
+                // Validate the date is valid
+                if (isNaN(purchaseDate.getTime())) {
+                    return null;
+                }
+                
+                const now = new Date();
+                const ageInYears = (now - purchaseDate) / (1000 * 60 * 60 * 24 * 365.25);
+                
+                // Return null if age is negative or unreasonably large (>150 years)
+                if (ageInYears < 0 || ageInYears > 150) {
+                    return null;
+                }
+                
+                return parseFloat(ageInYears.toFixed(1));
+            }
+
+            getPredictiveMaintenanceStatus() {
+                if (!this.purchaseDate || !this.averageLifespan || this.averageLifespan <= 0) {
+                    return null;
+                }
+
+                const age = this.getDeviceAge();
+                if (age === null) {
+                    return null;
+                }
+
+                const percentageUsed = (age / this.averageLifespan) * 100;
+                let status, color, icon;
+
+                if (percentageUsed >= 90) {
+                    status = 'High';
+                    color = '#dc2626'; // danger-color
+                    icon = 'fa-exclamation-circle';
+                } else if (percentageUsed >= 70) {
+                    status = 'Medium';
+                    color = '#d97706'; // warning-color
+                    icon = 'fa-exclamation-triangle';
+                } else if (percentageUsed >= 50) {
+                    status = 'Low';
+                    color = '#f59e0b'; // orange
+                    icon = 'fa-info-circle';
+                } else {
+                    status = 'Very Low';
+                    color = '#059669'; // success-color
+                    icon = 'fa-check-circle';
+                }
+
+                return {
+                    status,
+                    color,
+                    icon,
+                    percentageUsed: parseFloat(percentageUsed.toFixed(1)),
+                    age,
+                    lifespan: this.averageLifespan,
+                    yearsRemaining: Math.max(0, parseFloat((this.averageLifespan - age).toFixed(1)))
+                };
+            }
+
             addServiceEntry(serviceData) {
                 const service = new ServiceEntry(serviceData);
                 this.serviceHistory.unshift(service);
@@ -1593,6 +1866,7 @@
                     purchaseDate: this.purchaseDate,
                     price: this.price,
                     warrantyMonths: this.warrantyMonths,
+                    averageLifespan: this.averageLifespan,
                     notes: this.notes,
                     files: this.files,
                     serviceHistory: this.serviceHistory.map(s => s.toJSON())
@@ -1711,10 +1985,10 @@
             }
 
             initializeSampleData() {
-                // Sample data initialization disabled - start with empty list
-                // if (this.devices.length === 0) {
-                //     this.addSampleDevices();
-                // }
+                // Load sample data on first use
+                if (this.devices.length === 0) {
+                    this.addSampleDevices();
+                }
             }
 
             addSampleDevices() {
@@ -1728,6 +2002,7 @@
                         purchaseDate: '2022-03-15',
                         price: 1899.99,
                         warrantyMonths: 24,
+                        averageLifespan: 13,
                         notes: 'French door model with ice maker',
                         serviceHistory: [
                             {
@@ -1749,6 +2024,7 @@
                         purchaseDate: '2021-05-20',
                         price: 3200.00,
                         warrantyMonths: 36,
+                        averageLifespan: 18,
                         notes: '3-ton central air unit',
                         serviceHistory: [
                             {
@@ -1778,7 +2054,99 @@
                         purchaseDate: '2023-01-10',
                         price: 1299.99,
                         warrantyMonths: 12,
+                        averageLifespan: 9,
                         notes: '4K HDR Smart TV',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'LG Washing Machine',
+                        category: 'Laundry',
+                        brand: 'LG',
+                        model: 'WM4000CW',
+                        serial: 'LG2021654321',
+                        purchaseDate: '2021-06-10',
+                        price: 799.99,
+                        warrantyMonths: 12,
+                        averageLifespan: 11,
+                        notes: 'Front load, energy efficient',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'Bosch Dishwasher',
+                        category: 'Kitchen Appliances',
+                        brand: 'Bosch',
+                        model: 'SHPM65Z55N',
+                        serial: 'BOSCH987654',
+                        purchaseDate: '2023-02-20',
+                        price: 899.99,
+                        warrantyMonths: 12,
+                        averageLifespan: 10,
+                        notes: 'Quiet operation, energy star rated',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'Rheem Water Heater',
+                        category: 'Plumbing',
+                        brand: 'Rheem',
+                        model: 'PROG50-40A',
+                        serial: 'RHEEM2019888',
+                        purchaseDate: '2018-08-15',
+                        price: 899.00,
+                        warrantyMonths: 36,
+                        averageLifespan: 10,
+                        notes: '50-gallon gas water heater',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'GE Electric Oven',
+                        category: 'Kitchen Appliances',
+                        brand: 'GE',
+                        model: 'JB735SPSS',
+                        serial: 'GE2020555666',
+                        purchaseDate: '2020-04-12',
+                        price: 1299.99,
+                        warrantyMonths: 24,
+                        averageLifespan: 17,
+                        notes: 'Double wall oven, convection',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'DeWalt Drill',
+                        category: 'Power Tools',
+                        brand: 'DeWalt',
+                        model: 'DCD998B',
+                        serial: 'DEWALT445566',
+                        purchaseDate: '2022-09-05',
+                        price: 299.99,
+                        warrantyMonths: 36,
+                        averageLifespan: 12,
+                        notes: 'Compact drill, lithium battery',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'Honeywell Thermostat',
+                        category: 'HVAC',
+                        brand: 'Honeywell',
+                        model: 'T9',
+                        serial: 'HON2022777888',
+                        purchaseDate: '2022-11-20',
+                        price: 249.99,
+                        warrantyMonths: 12,
+                        averageLifespan: 15,
+                        notes: 'Smart thermostat with WiFi',
+                        serviceHistory: []
+                    },
+                    {
+                        name: 'Philips LED Lighting System',
+                        category: 'Lighting',
+                        brand: 'Philips',
+                        model: 'Hue Bridge',
+                        serial: 'PHILIPS2023999',
+                        purchaseDate: '2023-05-18',
+                        price: 79.99,
+                        warrantyMonths: 24,
+                        averageLifespan: 12,
+                        notes: 'Smart home lighting system',
                         serviceHistory: []
                     }
                 ];
@@ -2048,6 +2416,7 @@
                 this.saveServiceBtn = document.getElementById('saveServiceBtn');
 
                 // Navigation elements
+                this.dashboardTab = document.getElementById('dashboardTab');
                 this.deviceManagerTab = document.getElementById('deviceManagerTab');
                 this.costTrackerTab = document.getElementById('costTrackerTab');
 
@@ -2144,6 +2513,7 @@
                 });
 
                 // Navigation
+                this.dashboardTab.addEventListener('click', () => this.switchView('dashboard'));
                 this.deviceManagerTab.addEventListener('click', () => this.switchView('devices'));
                 this.costTrackerTab.addEventListener('click', () => this.switchView('costs'));
 
@@ -2192,7 +2562,10 @@
             }
 
             render() {
-                if (this.currentView === 'devices') {
+                if (this.currentView === 'dashboard') {
+                    this.sidebar.style.display = 'none';
+                    this.renderDashboard();
+                } else if (this.currentView === 'devices') {
                     this.sidebar.style.display = 'flex';
                     this.renderDevicesList();
                     this.renderMainContent();
@@ -2209,6 +2582,7 @@
             }
 
             updateNavigation() {
+                this.dashboardTab.classList.toggle('active', this.currentView === 'dashboard');
                 this.deviceManagerTab.classList.toggle('active', this.currentView === 'devices');
                 this.costTrackerTab.classList.toggle('active', this.currentView === 'costs');
             }
@@ -2356,6 +2730,8 @@
                         </div>
 
                         ${this.renderDIYGuide(device)}
+
+                        ${this.renderPredictiveMaintenanceCard(device)}
                     </div>
                 `;
                 
@@ -2475,6 +2851,63 @@
                 }).join('');
 
                 return `<div class="service-list">${serviceItems}</div>`;
+            }
+
+            renderPredictiveMaintenanceCard(device) {
+                const maintenanceStatus = device.getPredictiveMaintenanceStatus();
+
+                if (!maintenanceStatus) {
+                    return '';
+                }
+
+                const progressPercentage = Math.min(maintenanceStatus.percentageUsed, 100);
+
+                return `
+                    <div class="info-card predictive-maintenance-card">
+                        <h3><i class="fas fa-brain" style="color: ${maintenanceStatus.color}"></i> Predictive Lifespan</h3>
+                        <div class="maintenance-alert" style="border-left-color: ${maintenanceStatus.color};">
+                            <div class="maintenance-status-header">
+                                <i class="fas ${maintenanceStatus.icon}" style="color: ${maintenanceStatus.color}; font-size: 1.25rem;"></i>
+                                <div>
+                                    <div class="maintenance-risk-level" style="color: ${maintenanceStatus.color};">Risk of failure: <strong>${maintenanceStatus.status}</strong></div>
+                                    <p style="margin-top: 0.25rem; font-size: 0.875rem; color: var(--text-secondary);">Device age analysis based on typical lifespan</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="maintenance-details" style="margin-top: 1rem;">
+                            <div class="maintenance-metric">
+                                <span style="color: var(--text-secondary);">Age:</span>
+                                <span style="font-weight: 600;"><strong>${maintenanceStatus.age}</strong> years</span>
+                            </div>
+                            <div class="maintenance-metric">
+                                <span style="color: var(--text-secondary);">Average Lifespan:</span>
+                                <span style="font-weight: 600;"><strong>${maintenanceStatus.lifespan}</strong> years</span>
+                            </div>
+                            <div class="maintenance-metric">
+                                <span style="color: var(--text-secondary);">Time Remaining:</span>
+                                <span style="font-weight: 600;"><strong>${maintenanceStatus.yearsRemaining}</strong> ${maintenanceStatus.yearsRemaining === 1 ? 'year' : 'years'}</span>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-size: 0.875rem; color: var(--text-secondary);">Lifecycle Progress</span>
+                                    <span style="font-size: 0.875rem; font-weight: 600;">${progressPercentage.toFixed(0)}%</span>
+                                </div>
+                                <div class="progress-bar" style="height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;">
+                                    <div class="progress-fill" style="height: 100%; background: ${maintenanceStatus.color}; width: ${progressPercentage}%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        ${maintenanceStatus.status === 'High' ? `
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: #fee2e2; border-radius: 0.375rem; color: #7f1d1d; font-size: 0.875rem;">
+                                <strong>⚠️ Recommendation:</strong> This device is nearing the end of its typical lifespan. Consider planning for replacement or increased maintenance.
+                            </div>
+                        ` : maintenanceStatus.status === 'Medium' ? `
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: #fef3c7; border-radius: 0.375rem; color: #78350f; font-size: 0.875rem;">
+                                <strong>💡 Tip:</strong> Regular maintenance may help extend the device's lifespan. Monitor closely for signs of wear.
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
             }
 
             renderDIYGuide(device) {
@@ -2681,6 +3114,213 @@
                 });
             }
 
+            renderDashboard() {
+                // Calculate summary statistics
+                const totalDevices = this.state.devices.length;
+                
+                // Count devices with warranty expiring within 30 days
+                const warrantyExpiring = this.state.devices.filter(device => {
+                    const warranty = device.getWarrantyStatus();
+                    return warranty.status === 'expiring';
+                }).length;
+                
+                // Count devices with maintenance due (service history entries due within 30 days)
+                const maintenanceDue = this.state.devices.filter(device => {
+                    return device.serviceHistory.some(service => {
+                        const serviceDate = new Date(service.serviceDate);
+                        const now = new Date();
+                        const daysDiff = Math.ceil((serviceDate - now) / (1000 * 60 * 60 * 24));
+                        return daysDiff > 0 && daysDiff <= 30;
+                    });
+                }).length;
+                
+                // Count overdue service tasks (more than 30 days since service due date)
+                const tasksOverdue = this.state.devices.filter(device => {
+                    return device.serviceHistory.some(service => {
+                        const serviceDate = new Date(service.serviceDate);
+                        const now = new Date();
+                        const daysDiff = Math.ceil((serviceDate - now) / (1000 * 60 * 60 * 24));
+                        return daysDiff < -30;
+                    });
+                }).length;
+
+                this.mainTitle.textContent = 'Dashboard';
+                this.contentArea.innerHTML = `
+                    <div class="dashboard">
+                        <div class="dashboard-header">
+                            <h1 class="dashboard-title">Home Management Dashboard</h1>
+                            <p class="dashboard-subtitle">Overview of your devices and maintenance tasks</p>
+                        </div>
+
+                        <div class="summary-grid">
+                            <div class="summary-card">
+                                <div class="summary-card-icon" style="color: var(--primary-color);">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="summary-card-label">Total Devices</div>
+                                <div class="summary-card-value">${totalDevices}</div>
+                                <div class="summary-card-description">Managed devices in the system</div>
+                            </div>
+
+                            <div class="summary-card warning">
+                                <div class="summary-card-icon" style="color: var(--warning-color);">
+                                    <i class="fas fa-wrench"></i>
+                                </div>
+                                <div class="summary-card-label">Maintenance Due</div>
+                                <div class="summary-card-value">${maintenanceDue}</div>
+                                <div class="summary-card-description">Maintenance needed within 30 days</div>
+                            </div>
+
+                            <div class="summary-card warning">
+                                <div class="summary-card-icon" style="color: var(--warning-color);">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="summary-card-label">Warranty Expiring</div>
+                                <div class="summary-card-value">${warrantyExpiring}</div>
+                                <div class="summary-card-description">Warranties expiring soon</div>
+                            </div>
+
+                            <div class="summary-card danger">
+                                <div class="summary-card-icon" style="color: var(--danger-color);">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="summary-card-label">Tasks Overdue</div>
+                                <div class="summary-card-value">${tasksOverdue}</div>
+                                <div class="summary-card-description">Overdue maintenance tasks</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-section">
+                            <h2 class="dashboard-section-title">
+                                <i class="fas fa-list-check"></i>
+                                Quick Stats
+                            </h2>
+                            <div class="dashboard-list">
+                                <div class="dashboard-item">
+                                    <div class="dashboard-item-content">
+                                        <div class="dashboard-item-name">Total Maintenance Cost (This Year)</div>
+                                        <div class="dashboard-item-meta">Year ${new Date().getFullYear()}</div>
+                                    </div>
+                                    <div class="dashboard-item-badge">
+                                        ${this.state.getTotalExpensesForYear(new Date().getFullYear()).toFixed(2)} KM
+                                    </div>
+                                </div>
+                                <div class="dashboard-item">
+                                    <div class="dashboard-item-content">
+                                        <div class="dashboard-item-name">Devices with Warranty</div>
+                                        <div class="dashboard-item-meta">Active warranties</div>
+                                    </div>
+                                    <div class="dashboard-item-badge">
+                                        ${this.state.devices.filter(d => d.warrantyMonths > 0).length}
+                                    </div>
+                                </div>
+                                <div class="dashboard-item">
+                                    <div class="dashboard-item-content">
+                                        <div class="dashboard-item-name">Average Device Age</div>
+                                        <div class="dashboard-item-meta">Based on purchase dates</div>
+                                    </div>
+                                    <div class="dashboard-item-badge">
+                                        ${(() => {
+                                            const validAges = this.state.devices.map(d => d.getDeviceAge()).filter(age => age !== null);
+                                            const avgAge = validAges.length > 0 ? validAges.reduce((sum, age) => sum + age, 0) / validAges.length : 0;
+                                            return avgAge.toFixed(1);
+                                        })()} years
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-section">
+                            <h2 class="dashboard-section-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Items Requiring Attention
+                            </h2>
+                            ${this.generateMaintenanceAlerts()}
+                        </div>
+                    </div>
+                `;
+            }
+
+            generateMaintenanceAlerts() {
+                const alerts = [];
+
+                // Warranty expiring alerts
+                this.state.devices.forEach(device => {
+                    const warranty = device.getWarrantyStatus();
+                    if (warranty.status === 'expiring') {
+                        alerts.push({
+                            type: 'warranty',
+                            device: device.name,
+                            message: warranty.text,
+                            severity: 'warning',
+                            icon: 'fa-shield-alt'
+                        });
+                    }
+                });
+
+                // Overdue maintenance alerts
+                this.state.devices.forEach(device => {
+                    device.serviceHistory.forEach(service => {
+                        const serviceDate = new Date(service.serviceDate);
+                        const now = new Date();
+                        const daysDiff = Math.ceil((serviceDate - now) / (1000 * 60 * 60 * 24));
+                        
+                        if (daysDiff < -30) {
+                            alerts.push({
+                                type: 'overdue',
+                                device: device.name,
+                                message: `Overdue: ${service.description}`,
+                                severity: 'danger',
+                                icon: 'fa-exclamation-circle'
+                            });
+                        }
+                    });
+                });
+
+                // Predictive maintenance alerts
+                this.state.devices.forEach(device => {
+                    const maintenance = device.getPredictiveMaintenanceStatus();
+                    if (maintenance && maintenance.status === 'High') {
+                        alerts.push({
+                            type: 'maintenance',
+                            device: device.name,
+                            message: `Device nearing end of lifespan (${maintenance.age}/${maintenance.lifespan} years)`,
+                            severity: 'danger',
+                            icon: 'fa-brain'
+                        });
+                    }
+                });
+
+                if (alerts.length === 0) {
+                    return `
+                        <div class="dashboard-list">
+                            <div class="dashboard-empty">
+                                <i class="fas fa-check-circle" style="color: var(--success-color);"></i>
+                                <p><strong>All systems nominal!</strong> No urgent maintenance needs at this time.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="dashboard-list">
+                        ${alerts.map(alert => `
+                            <div class="dashboard-item">
+                                <div class="dashboard-item-content">
+                                    <div class="dashboard-item-name">
+                                        <i class="fas ${alert.icon}"></i> ${alert.device}
+                                    </div>
+                                    <div class="dashboard-item-meta">${alert.message}</div>
+                                </div>
+                                <div class="dashboard-item-badge" style="background: ${alert.severity === 'danger' ? '#fee2e2' : '#fef3c7'}; color: ${alert.severity === 'danger' ? '#dc2626' : '#d97706'};">
+                                    ${alert.severity === 'danger' ? 'Urgent' : 'Warning'}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
             changeYear(year) {
                 this.state.currentYear = year;
                 this.renderCostTracker();
@@ -2754,6 +3394,7 @@
                     document.getElementById('devicePrice').value = device.price || '';
                     document.getElementById('purchaseDate').value = device.purchaseDate || '';
                     document.getElementById('warrantyMonths').value = device.warrantyMonths || '';
+                    document.getElementById('deviceAverageLifespan').value = device.averageLifespan || '';
                     document.getElementById('deviceNotes').value = device.notes || '';
                 }
                 
@@ -2781,6 +3422,7 @@
                     price: parseFloat(document.getElementById('devicePrice').value) || 0,
                     purchaseDate: document.getElementById('purchaseDate').value,
                     warrantyMonths: parseInt(document.getElementById('warrantyMonths').value) || 0,
+                    averageLifespan: parseFloat(document.getElementById('deviceAverageLifespan').value) || 0,
                     notes: document.getElementById('deviceNotes').value
                 };
 

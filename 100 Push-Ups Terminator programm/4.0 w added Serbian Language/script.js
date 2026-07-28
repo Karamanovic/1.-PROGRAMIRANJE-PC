@@ -55,23 +55,24 @@ function getNextWorkoutDay() {
 function displayCurrentWorkout() {
   const currentWorkout = getNextWorkoutDay();
   const workoutDetails = document.getElementById("workout-details");
+  const lang = translations[currentLanguage];
 
   if (!currentWorkout) {
-    workoutDetails.innerText = "Congratulations! You've completed all the workouts.";
+    workoutDetails.innerText = lang.congratulations;
     return;
   }
 
   if (currentWorkout.rest) {
-    workoutDetails.innerHTML = `<strong>Day ${currentWorkout.day}:</strong> Rest day! Take a break and recover.`;
+    workoutDetails.innerHTML = `<strong>${lang.day} ${currentWorkout.day}:</strong> ${lang.restMessage}`;
   } else {
     workoutDetails.innerHTML = `
-      <strong>Day ${currentWorkout.day}:</strong> Push-ups to do:
+      <strong>${lang.day} ${currentWorkout.day}:</strong> ${lang.pushUpsToDo}:
       <ul>
         ${currentWorkout.sets
           .map(
             (set, index) => `
           <li class="toggle-set" onclick="toggleSetComplete(this)">
-            Set ${index + 1}: ${set} push-ups
+            ${lang.set} ${index + 1}: ${set} ${lang.pushUpsText}
           </li>`
           )
           .join("")}
@@ -311,46 +312,32 @@ function toggleLanguage() {
 }
 
 function updateTranslations() {
-   // Update the header texts
-  document.getElementById("welcome-message").textContent =
-  translations[currentLanguage].welcomeMessage;
+  const currentTranslations = translations[currentLanguage];
 
-document.getElementById("mark").textContent =
-  translations[currentLanguage].markText;
+  // Update the header texts
+  document.getElementById("welcome-message").textContent = currentTranslations.welcomeMessage;
+  document.getElementById("mark").textContent = currentTranslations.markText;
+  document.getElementById("rest-note").textContent = currentTranslations.restNoteText;
+  document.getElementById("scrollText").textContent = currentTranslations.scrollText;
+  document.getElementById("scrollToCurrentWorkout").textContent = currentTranslations.linkText;
+  document.getElementById("scrollEnd").textContent = currentTranslations.scrollEnd;
+  document.getElementById("currentWorkout").textContent = currentTranslations.currentWorkout;
+  document.getElementById("stopwatchText").textContent = currentTranslations.stopwatchText;
+  document.getElementById("motivated").innerHTML =
+    currentTranslations.motivated + ' ' +
+    currentTranslations.textLink +
+    ' <a href="https://www.youtube.com/watch?v=ywCVSrbJXFY&t=1030s" target="_blank" rel="noopener noreferrer">Phonk Workout Music!</a>';
 
-document.getElementById("rest-note").textContent =
-  translations[currentLanguage].restNoteText;
+  // Update table headers
+  document.getElementById("day-header").textContent = currentTranslations.day;
+  document.getElementById("sets-header").textContent = currentTranslations.sets;
+  document.getElementById("actions-header").textContent = currentTranslations.actions;
+  document.getElementById("note-text").textContent = currentTranslations.note;
 
-document.getElementById("scrollText").textContent =
-  translations[currentLanguage].scrollText;
+  const languageButton = document.getElementById("language-toggle-btn");
+  languageButton.textContent = currentLanguage === "sr" ? "Translate to English" : "Prevedi na Srpski";
 
-  document.getElementById("scrollToCurrentWorkout").textContent = 
-  translations[currentLanguage].linkText;
-
-  document.getElementById("scrollEnd").textContent = 
-  translations[currentLanguage].scrollEnd;  
-
-  document.getElementById("currentWorkout").textContent = 
-  translations[currentLanguage].currentWorkout;
-
-  document.getElementById("stopwatchText").textContent = 
-  translations[currentLanguage].stopwatchText; motivated
-
-  document.getElementById("motivated").innerHTML = 
-  translations[currentLanguage].motivated + ' ' + 
-  translations[currentLanguage].textLink + 
-  ' <a href="https://www.youtube.com/watch?v=ywCVSrbJXFY&t=1030s" target="_blank" rel="noopener noreferrer">Phonk Workout Music!</a>';
-
-   
-  
-  // Update table headers 
-   document.getElementById("day-header").textContent = translations[currentLanguage].day;
-   document.getElementById("sets-header").textContent = translations[currentLanguage].sets;
-   document.getElementById("actions-header").textContent = translations[currentLanguage].actions;
-  
-  document.getElementById("note-text").textContent =
-    translations[currentLanguage].note;
-
+  displayCurrentWorkout();
   updateTracker(); // Ensure the tracker is updated with the current language
 }
 
