@@ -1,0 +1,140 @@
+{
+  "habits": [
+    {
+      "id": "habit-workout",
+      "name": "Workout",
+      "icon": "🏋️",
+      "category": "nonNegotiable",
+      "completions": {}
+    },
+    {
+      "id": "habit-read",
+      "name": "Read",
+      "icon": "📚",
+      "category": "other",
+      "completions": {}
+    },
+    {
+      "id": "habit-focus",
+      "name": "Deep work",
+      "icon": "💻",
+      "category": "other",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-1da6dde7-fcd1-481a-b6a1-a495fd6a3adc",
+      "name": "Ustati na prvi alarm",
+      "icon": "⏰",
+      "category": "nonNegotiable",
+      "completions": {}
+    },
+    {
+      "id": "habit-40b7769b-e697-4670-981e-eefd8560332a",
+      "name": "Hladan tuš",
+      "icon": "🚿",
+      "category": "nonNegotiable",
+      "completions": {}
+    },
+    {
+      "id": "habit-50764b03-b531-489d-9939-464312af13a7",
+      "name": "Smanjiti korištenje telefona",
+      "icon": "📱",
+      "category": "nonNegotiable",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-a8fe2c7d-101e-419d-82f4-f5589838d1fa",
+      "name": "Pročitati 20 stranica knjige",
+      "icon": "📖",
+      "category": "nonNegotiable",
+      "completions": {}
+    },
+    {
+      "id": "habit-dfa6db0b-699c-428d-acd8-420d9debd2bf",
+      "name": "Jesti zdravo",
+      "icon": "🥗",
+      "category": "nonNegotiable",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-fec38eb9-e6e4-4a33-b8f4-60d8a210a318",
+      "name": "Piti 3L vode",
+      "icon": "🥤",
+      "category": "nonNegotiable",
+      "completions": {}
+    },
+    {
+      "id": "habit-9cf090fc-e06f-4fd1-b285-a25d5c56baf3",
+      "name": "Ne piti alkohol",
+      "icon": "🍺",
+      "category": "nonNegotiable",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-44d6f3a4-3760-4762-b83b-7fbd02be456a",
+      "name": "Leći spavati prije 22:30",
+      "icon": "😴",
+      "category": "nonNegotiable",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-128e140f-4094-4fc1-b816-9a7b6380da17",
+      "name": "10K koraka",
+      "icon": "🚶‍",
+      "category": "other",
+      "completions": {}
+    },
+    {
+      "id": "habit-cfe66c78-82a0-4ce2-ab3a-b481d3fa91aa",
+      "name": "Istezati se",
+      "icon": "🤸",
+      "category": "other",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-715e612d-4472-49fe-a799-c6049ef653d9",
+      "name": "Naučiti nešto novo",
+      "icon": "🎓",
+      "category": "other",
+      "completions": {
+        "2026-08-12": true
+      }
+    },
+    {
+      "id": "habit-ddf9be86-a840-42c6-8b8d-82172814f460",
+      "name": "Programirati",
+      "icon": "⌨️",
+      "category": "other",
+      "completions": {
+        "2026-08-12": true
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "text": "Plan the top 3 priorities for today",
+      "done": true
+    },
+    {
+      "id": "task-2",
+      "text": "Do one hard thing before noon",
+      "done": false
+    }
+  ],
+  "reflection": "Productive day today! :) 12.08.2026.",
+  "theme": "dark",
+  "monthCursor": "2026-08"
+}

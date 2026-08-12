@@ -1,0 +1,103 @@
+[
+  {
+    "id": "user-1786375213286",
+    "name": "Alen Mešić",
+    "entries": []
+  },
+  {
+    "id": "user-1786375203345",
+    "name": "Bogdan Božić",
+    "entries": []
+  },
+  {
+    "id": "user-1786374433469",
+    "name": "Dejan Karamanović",
+    "entries": [
+      {
+        "id": "entry-1786375977962",
+        "date": "2026-07-06",
+        "month": "Avgust",
+        "hours": 2,
+        "description": "Bez opisa",
+        "type": "add"
+      },
+      {
+        "id": "entry-1786374473387",
+        "date": "2026-08-10",
+        "month": "Avgust",
+        "hours": 6,
+        "description": "Bez opisa",
+        "type": "add"
+      },
+      {
+        "id": "entry-1786374456358",
+        "date": "2026-08-10",
+        "month": "Avgust",
+        "hours": 8,
+        "description": "SLOBODAN DAN",
+        "type": "subtract"
+      },
+      {
+        "id": "entry-1786374448761",
+        "date": "2026-08-07",
+        "month": "Avgust",
+        "hours": 4,
+        "description": "PRETRES",
+        "type": "add"
+      }
+    ]
+  },
+  {
+    "id": "user-1786375208869",
+    "name": "Edin Porobić",
+    "entries": []
+  },
+  {
+    "id": "user-1786374491320",
+    "name": "Mladen Đorđić",
+    "entries": [
+      {
+        "id": "entry-1786374503068",
+        "date": "2026-08-10",
+        "month": "Avgust",
+        "hours": 4,
+        "description": "preters",
+        "type": "add"
+      }
+    ]
+  },
+  {
+    "id": "user-1786375225159",
+    "name": "Nebojša Blagojević",
+    "entries": []
+  },
+  {
+    "id": "user-1786375158840",
+    "name": "Nemanja Perić",
+    "entries": []
+  },
+  {
+    "id": "user-1786375178548",
+    "name": "Slobodan Blagojević",
+    "entries": []
+  },
+  {
+    "id": "user-1786375220350",
+    "name": "Viktor Milošević",
+    "entries": [
+      {
+        "id": "entry-1786380838942",
+        "date": "2026-08-10",
+        "month": "Avgust",
+        "hours": 1,
+        "description": "PREKOVREMENI",
+        "type": "add"
+      }
+    ]
+  },
+  {
+    "id": "user-1786375165637",
+    "name": "Zoran Babić",
+    "entries": []
+  }
+]
