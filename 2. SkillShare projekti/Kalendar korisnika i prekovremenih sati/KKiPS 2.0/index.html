@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evidencija prekovremenih sati</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.1/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+<h1>Evidencija prekovremenih sati</h1>
+<nav>
+<button data-page="dashboard">Dashboard</button>
+<button data-page="users">Korisnici</button>
+<button data-page="stats">Statistika</button>
+<button data-page="settings">Postavke</button>
+</nav>
+</header>
+
+<main>
+<section id="dashboard" class="page active">
+<h2>Pregled</h2>
+<div class="cards">
+<div class="card"><h3>Ukupno korisnika</h3><span id="totalUsers">0</span></div>
+<div class="card"><h3>Ukupno prekovremenih</h3><span id="totalHours">0 h</span></div>
+</div>
+<div class="table-card">
+<h3>Lista korisnika i sati</h3>
+<table class="dashboard-table">
+<thead>
+<tr><th>Korisnik</th><th>Ukupno prekovremeni sati</th></tr>
+</thead>
+<tbody id="dashboardTableBody"></tbody>
+</table>
+</div>
+</section>
+
+<section id="users" class="page">
+<h2>Korisnici</h2>
+<form id="userForm">
+<input id="userName" placeholder="Ime i prezime">
+<button type="submit">Dodaj korisnika</button>
+</form>
+
+<div id="usersContainer"></div>
+
+<template id="userCardTemplate">
+<div class="user-card">
+<div class="user-card-header">
+<span class="user-number"></span>
+<h3 class="name"></h3>
+</div>
+<p>Stanje: <strong class="balance">0 h</strong></p>
+<div class="actions">
+<button class="addHours">+ Dodaj sate</button>
+<button class="removeHours">- Iskoristi sate</button>
+<button class="historyBtn">Istorija</button>
+<button class="deleteBtn">Obriši</button>
+</div>
+</div>
+</template>
+</section>
+
+<section id="stats" class="page">
+<h2>Statistika</h2>
+<div class="chart-box"><canvas id="usersChart"></canvas></div>
+<div class="chart-box"><canvas id="monthsChart"></canvas></div>
+<div class="summary-card" id="usedHoursStats"></div>
+</section>
+
+<section id="settings" class="page">
+<h2>Postavke</h2>
+<button id="exportJson">Backup JSON</button>
+<button id="importJson">Učitaj Backup</button>
+<button id="exportExcel">Izvoz Excel</button>
+<button id="importExcel">Uvoz Excel</button>
+<button id="toggleTheme">Dark/Light</button>
+<input type="file" id="jsonFile" hidden>
+<input type="file" id="excelFile" hidden accept=".xlsx,.xls,.csv">
+</section>
+</main>
+
+<dialog id="hoursDialog">
+<form method="dialog" id="hoursForm">
+<h3 id="dialogTitle">Unos sati</h3>
+<label>Datum <input type="date" id="entryDate"></label>
+<label>Mjesec
+<select id="entryMonth">
+<option>Januar</option><option>Februar</option><option>Mart</option>
+<option>April</option><option>Maj</option><option>Juni</option>
+<option>Juli</option><option>Avgust</option><option>Septembar</option>
+<option>Oktobar</option><option>Novembar</option><option>Decembar</option>
+</select></label>
+<label>Broj sati <input type="number" id="entryHours" min="0" step="0.5"></label>
+<label>Opis <textarea id="entryDescription"></textarea></label>
+<input type="hidden" id="entryType">
+<div>
+<button value="cancel">Otkaži</button>
+<button id="saveHoursBtn" value="default">Sačuvaj</button>
+</div>
+</form>
+</dialog>
+
+<dialog id="historyDialog">
+<h3>Istorija korisnika</h3>
+<table>
+<thead><tr><th>Datum</th><th>Mjesec</th><th>Opis</th><th>Dodano</th><th>Oduzeto</th><th>Stanje</th></tr></thead>
+<tbody id="historyBody"></tbody>
+</table>
+<form method="dialog"><button>Zatvori</button></form>
+</dialog>
+<footer class="copyright"> Verzija 1.0  © Dejan Karamanović 2026. All rights reserved.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

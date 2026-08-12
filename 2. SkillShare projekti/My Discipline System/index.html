@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>My Discipline System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">MDS</span>
+        <div>
+          <h1>My Discipline System</h1>
+          <p>Discipline today, freedom tomorrow.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">☾</button>
+        <button class="icon-btn" id="exportBtn" title="Export data">⇩</button>
+        <button class="icon-btn" id="importBtn" title="Import data">⇧</button>
+        <input type="file" id="importFile" accept="application/json" hidden>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero-grid">
+        <div class="quote-card">
+          <span class="eyebrow">TODAY'S FOCUS</span>
+          <h2 id="focusQuote">Be the person you want to become.</h2>
+          <p id="todayLabel"></p>
+        </div>
+        <div class="score-card">
+          <div>
+            <span class="eyebrow">OVERALL PROGRESS</span>
+            <strong id="overallProgress">0%</strong>
+          </div>
+          <div class="progress-ring" id="progressRing">
+            <span id="ringValue">0%</span>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="stats-row">
+        <article class="stat-card">
+          <span>🔥</span><div><small>Current streak</small><strong id="streakValue">0 days</strong></div>
+        </article>
+        <article class="stat-card">
+          <span>✓</span><div><small>Completed today</small><strong id="todayCompleted">0 / 0</strong></div>
+        </article>
+        <article class="stat-card">
+          <span>📅</span><div><small>Month progress</small><strong id="monthProgress">0%</strong></div>
+        </article>
+        <article class="stat-card">
+          <span>🎯</span><div><small>Best habit</small><strong id="bestHabit">—</strong></div>
+        </article>
+      </section>
+
+      <section class="section-head">
+        <div>
+          <span class="eyebrow">DAILY NON-NEGOTIABLES</span>
+          <h2>Habits that happen no matter what.</h2>
+        </div>
+        <button class="primary-btn" id="addNonBtn">+ Add habit</button>
+      </section>
+      <section class="habit-list" id="nonNegotiables"></section>
+
+      <section class="section-head other-head">
+        <div>
+          <span class="eyebrow">OTHER HABITS</span>
+          <h2>Build the life you want.</h2>
+        </div>
+        <button class="primary-btn" id="addOtherBtn">+ Add habit</button>
+      </section>
+      <section class="habit-list" id="otherHabits"></section>
+
+      <section class="tracker-card">
+        <div class="tracker-head">
+          <div>
+            <span class="eyebrow">HABIT TRACKER</span>
+            <h2 id="monthTitle">Month</h2>
+          </div>
+          <div class="month-controls">
+            <button class="icon-btn light" id="prevMonth">‹</button>
+            <button class="today-btn" id="currentMonthBtn">Today</button>
+            <button class="icon-btn light" id="nextMonth">›</button>
+          </div>
+        </div>
+        <div class="tracker-scroll">
+          <table class="tracker-table">
+            <thead id="trackerHead"></thead>
+            <tbody id="trackerBody"></tbody>
+          </table>
+        </div>
+        <div class="tracker-legend">
+          <span><i class="dot done"></i> Completed</span>
+          <span><i class="dot missed"></i> Missed / not completed</span>
+          <span><i class="dot today"></i> Today</span>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="panel">
+          <div class="panel-title">
+            <div><span class="eyebrow">TODAY I WILL</span><h2>Daily intentions</h2></div>
+            <button class="text-btn" id="clearTasks">Clear completed</button>
+          </div>
+          <form id="taskForm" class="inline-form">
+            <input id="taskInput" type="text" maxlength="100" placeholder="Add a task for today...">
+            <button class="primary-btn" type="submit">Add</button>
+          </form>
+          <ul class="task-list" id="taskList"></ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <div><span class="eyebrow">NOTES / REFLECTIONS</span><h2>Check in with yourself</h2></div>
+            <span class="save-status" id="noteStatus">Saved automatically</span>
+          </div>
+          <textarea id="reflection" class="reflection" placeholder="Energy was low in the morning... Better in the evening... What did you learn today?"></textarea>
+        </div>
+      </section>
+
+      <section class="summary-card">
+        <div>
+          <span class="eyebrow">REMINDER</span>
+          <h2>Keep showing up.</h2>
+          <p>Your future self is counting on you.</p>
+        </div>
+        <div class="summary-actions">
+          <button class="secondary-btn" id="manageBtn">Manage habits</button>
+          <button class="danger-btn" id="resetBtn">Reset all data</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>My Discipline System · Your system. Your standards. Your future.</footer>
+  </div>
+
+  <dialog id="habitDialog">
+    <form method="dialog" id="habitForm" class="dialog-form">
+      <div class="dialog-head">
+        <div><span class="eyebrow">HABIT</span><h2 id="dialogTitle">Add habit</h2></div>
+        <button type="button" class="close-btn" id="closeHabit">×</button>
+      </div>
+      <input type="hidden" id="editingHabitId">
+      <label>Name
+        <input id="habitName" type="text" maxlength="60" required placeholder="e.g. Workout">
+      </label>
+      <label>Category
+        <select id="habitCategory">
+          <option value="nonNegotiable">Daily Non-Negotiable</option>
+          <option value="other">Other Habit</option>
+        </select>
+      </label>
+      <label>Icon / emoji
+        <input id="habitIcon" type="text" maxlength="3" placeholder="✓">
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-btn" id="cancelHabit">Cancel</button>
+        <button type="submit" class="primary-btn">Save habit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirmDialog">
+    <div class="dialog-form">
+      <span class="eyebrow">RESET</span>
+      <h2>Reset your system?</h2>
+      <p>This will delete habits, completions, tasks and reflections from this browser.</p>
+      <div class="dialog-actions">
+        <button class="secondary-btn" id="cancelReset">Cancel</button>
+        <button class="danger-btn" id="confirmReset">Reset everything</button>
+      </div>
+    </div>
+  </dialog>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <img src="arrow-up.png" alt="Back to top" class="back-to-top-img">
+  </button>
+  <script src="script.js"></script>
+  <footer class="copyright"> Version 1.0  © Dejan Karamanović 2026. All rights reserved.
+</footer>
+</body>
+</html>
