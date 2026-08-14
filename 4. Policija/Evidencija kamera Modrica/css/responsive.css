@@ -1,0 +1,518 @@
+/* ========================================
+   RESPONSIVE.CSS - Responsive dizajn
+   ======================================== */
+
+/* ========== TABLET (768px i manje) ========== */
+
+@media (max-width: 768px) {
+    
+    /* Header */
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo h1 {
+        font-size: 24px;
+    }
+    
+    .logo p {
+        font-size: 12px;
+    }
+    
+    /* Menu Toggle */
+    .menu-toggle {
+        display: block;
+        width: calc(100% - 20px);
+        margin: 10px;
+    }
+    
+    /* Main Wrapper */
+    .main-wrapper {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        border-radius: 0;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    /* Main Content */
+    .main-content {
+        padding: 20px;
+        border-radius: 0;
+    }
+    
+    /* H1 */
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 18px;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .stat-icon {
+        font-size: 36px;
+    }
+    
+    .stat-info h3 {
+        font-size: 24px;
+    }
+    
+    /* Dashboard Sections */
+    .dashboard-sections {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Form Grid */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    /* Table */
+    .data-table {
+        font-size: 12px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 10px 8px;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary,
+    .btn-edit,
+    .btn-delete {
+        padding: 8px 12px;
+        font-size: 12px;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .dashboard-actions {
+        flex-direction: column;
+    }
+    
+    .dashboard-actions .btn-primary,
+    .dashboard-actions .btn-secondary {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    /* Objects Grid */
+    .objects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Card Actions */
+    .card-actions {
+        flex-direction: column;
+    }
+    
+    .card-actions .btn-edit,
+    .card-actions .btn-delete {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    /* Chart */
+    .chart-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .chart-item > span:first-child {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .chart-item .bar {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    /* Section */
+    .section {
+        padding: 15px;
+    }
+    
+    /* Footer */
+    .footer {
+        font-size: 12px;
+        padding: 15px;
+    }
+    
+    /* Form Section */
+    .form-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+/* ========== MOBILNI (480px i manje) ========== */
+
+@media (max-width: 480px) {
+    
+    /* Header */
+    .header {
+        padding: 15px 10px;
+    }
+    
+    .logo h1 {
+        font-size: 18px;
+        margin-bottom: 3px;
+    }
+    
+    .logo p {
+        font-size: 11px;
+    }
+    
+    .header-info {
+        font-size: 12px;
+    }
+    
+    /* Menu Toggle */
+    .menu-toggle {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+    
+    /* Main Wrapper */
+    .main-wrapper {
+        padding: 10px;
+    }
+    
+    /* Main Content */
+    .main-content {
+        padding: 15px;
+    }
+    
+    /* Headings */
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 16px;
+    }
+    
+    h3 {
+        font-size: 14px;
+    }
+    
+    /* Stat Card */
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-icon {
+        font-size: 28px;
+    }
+    
+    .stat-info h3 {
+        font-size: 20px;
+    }
+    
+    .stat-info p {
+        font-size: 12px;
+    }
+    
+    /* Form */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    textarea {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    textarea {
+        min-height: 60px;
+    }
+    
+    /* Table */
+    .data-table {
+        font-size: 11px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 8px 5px;
+    }
+    
+    /* Object Card */
+    .object-card {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .object-card p {
+        margin: 6px 0;
+        font-size: 13px;
+    }
+    
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary,
+    .btn-edit,
+    .btn-delete,
+    .btn-back {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    /* Status Badge */
+    .status-badge {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    /* Section */
+    .section {
+        padding: 10px;
+        margin: 15px 0;
+    }
+    
+    /* Expiring Item */
+    .expiring-item {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+    
+    /* Chart Data */
+    .chart-data {
+        gap: 10px;
+    }
+    
+    .chart-item > span:first-child {
+        font-size: 12px;
+    }
+    
+    .chart-item .bar {
+        height: 25px;
+    }
+    
+    .chart-item > span:last-child {
+        font-size: 12px;
+    }
+    
+    /* Report Section */
+    .report-section {
+        padding: 12px;
+    }
+    
+    .report-item {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .report-item small {
+        font-size: 11px;
+    }
+    
+    /* Settings */
+    .settings-section {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .settings-section label {
+        gap: 8px;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 10px;
+        font-size: 10px;
+    }
+    
+    /* Sidebar Footer */
+    .sidebar-footer {
+        padding: 10px;
+        font-size: 10px;
+    }
+    
+    /* Street Item */
+    .street-item {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+}
+
+/* ========== LANDSCAPE MOBILNI (480px, landscape) ========== */
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .header {
+        padding: 10px;
+    }
+    
+    .logo h1 {
+        font-size: 16px;
+    }
+    
+    .main-content {
+        padding: 15px;
+    }
+}
+
+/* ========== DESKTOP (1200px i više) ========== */
+
+@media (min-width: 1200px) {
+    .main-wrapper {
+        max-width: 1400px;
+    }
+    
+    .objects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ========== PRINT ========== */
+
+@media print {
+    .sidebar,
+    .menu-toggle,
+    .header,
+    .footer,
+    .btn-primary,
+    .btn-secondary,
+    .btn-edit,
+    .btn-delete,
+    .btn-danger,
+    .btn-back {
+        display: none;
+    }
+    
+    .main-content {
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    body {
+        background: white;
+    }
+    
+    .data-table {
+        page-break-inside: avoid;
+    }
+    
+    .object-card,
+    .section {
+        page-break-inside: avoid;
+    }
+}
+
+/* ========== DARK MODE (opciono) ========== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #111827;
+        --sidebar-color: #1F2937;
+        --card-color: #374151;
+        --primary-color: #2563EB;
+        --secondary-color: #1D4ED8;
+        --light-bg: #374151;
+        --text-primary: #F9FAFB;
+        --text-secondary: #D1D5DB;
+        --text-muted: #9CA3AF;
+        --white: #ffffff;
+        --border-color: #4B5563;
+    }
+    
+    body {
+        background: #111827;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    textarea {
+        background-color: rgba(17, 24, 39, 0.8);
+        color: var(--text-primary);
+        border-color: var(--border-color);
+    }
+}
+
+/* ========== ACCESSIBILITY ========== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ========== HIGH CONTRAST ========== */
+
+@media (prefers-contrast: more) {
+    :root {
+        --primary-color: #000;
+        --secondary-color: #0066cc;
+        --border-color: #000;
+    }
+    
+    .nav-link,
+    .stat-card,
+    .data-table {
+        border-width: 2px;
+    }
+}
+
+/* ========== FOCUS VISIBLE ========== */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}

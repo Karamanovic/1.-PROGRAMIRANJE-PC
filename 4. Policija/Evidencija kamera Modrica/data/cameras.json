@@ -1,0 +1,84 @@
+{
+  "cameras": [
+    {
+      "id": 1,
+      "objectName": "Privatna kuća - Marković",
+      "street": "Kralja Vladimira 15",
+      "quality": "Full HD (1080p)",
+      "retentionDays": 30,
+      "status": "aktivna",
+      "installDate": "2024-01-15",
+      "owner": "Ivan Marković",
+      "phone": "091 123 4567",
+      "email": "ivan.markovic@email.com",
+      "cameraCount": 2,
+      "securityLevel": "privatni prostor",
+      "category": "kuća",
+      "notes": "Kamera kod ulaznih vrata i u garaži",
+      "lastMaintenance": "2025-07-20"
+    },
+    {
+      "id": 2,
+      "objectName": "Dućan - Zdenka",
+      "street": "Glavna ulica 42",
+      "quality": "4K",
+      "retentionDays": 60,
+      "status": "aktivna",
+      "installDate": "2023-06-10",
+      "owner": "Zdenka Horvat",
+      "phone": "091 234 5678",
+      "email": "zdenka.horvat@email.com",
+      "cameraCount": 4,
+      "securityLevel": "javni prostor",
+      "category": "mali biznis",
+      "notes": "Kamere pokrivaju ulaznu zonu i blagajnu",
+      "lastMaintenance": "2025-08-01"
+    },
+    {
+      "id": 3,
+      "objectName": "Poslovna zgrada - Tehnos d.o.o.",
+      "street": "Industrijska zona 5",
+      "quality": "Full HD (1080p)",
+      "retentionDays": 90,
+      "status": "aktivna",
+      "installDate": "2022-03-20",
+      "owner": "Petar Novak",
+      "phone": "091 345 6789",
+      "email": "petar.novak@tehnos.hr",
+      "cameraCount": 8,
+      "securityLevel": "strogo poverljivo",
+      "category": "poslovna zgrada",
+      "notes": "Sustav sigurnosti s NVR snimanjem",
+      "lastMaintenance": "2025-08-10"
+    }
+  ],
+  "streets": [
+    { "id": 1, "name": "Kralja Vladimira", "cameraCount": 2, "district": "Centar" },
+    { "id": 2, "name": "Glavna ulica", "cameraCount": 4, "district": "Centar" },
+    { "id": 3, "name": "Industrijska zona", "cameraCount": 8, "district": "Industrijska" }
+  ],
+  "categories": [
+    "kuća",
+    "mali biznis",
+    "poslovna zgrada",
+    "drugi"
+  ],
+  "qualities": [
+    "480p",
+    "720p (HD)",
+    "Full HD (1080p)",
+    "2K",
+    "4K"
+  ],
+  "statuses": [
+    "aktivna",
+    "neaktivna",
+    "neispravna",
+    "u popravci"
+  ],
+  "securityLevels": [
+    "javni prostor",
+    "privatni prostor",
+    "strogo povjerljivo"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "cameras": [
+    {
+      "objectName": "Adreatic",
+      "street": "Cara Lazara",
+      "quality": "Full HD (1080p)",
+      "retentionDays": 30,
+      "status": "aktivna",
+      "installDate": "2026-08-14",
+      "owner": "GORAN K",
+      "phone": "",
+      "email": "",
+      "cameraCount": 1,
+      "category": "poslovna zgrada",
+      "securityLevel": "javni prostor",
+      "notes": "",
+      "lastMaintenance": "2026-08-14",
+      "location": {
+        "address": "Lokacija 44.955285, 18.300272",
+        "lat": 44.955202,
+        "lng": 18.300326,
+        "direction": 66
+      },
+      "id": 1
+    }
+  ],
+  "streets": [
+    {
+      "name": "Cara Lazara",
+      "cameraCount": 1
+    }
+  ],
+  "categories": [
+    "kuća",
+    "mali biznis",
+    "poslovna zgrada",
+    "drugi"
+  ],
+  "qualities": [
+    "480p",
+    "720p (HD)",
+    "Full HD (1080p)",
+    "2K",
+    "4K"
+  ],
+  "statuses": [
+    "aktivna",
+    "neaktivna",
+    "neispravna",
+    "u popravci"
+  ],
+  "securityLevels": [
+    "javni prostor",
+    "privatni prostor",
+    "strogo poverljivo"
+  ]
+}
