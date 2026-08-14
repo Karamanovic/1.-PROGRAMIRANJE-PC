@@ -12,7 +12,9 @@
       "name": "Read",
       "icon": "📚",
       "category": "other",
-      "completions": {}
+      "completions": {
+        "2026-08-14": true
+      }
     },
     {
       "id": "habit-focus",
@@ -20,7 +22,8 @@
       "icon": "💻",
       "category": "other",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     },
     {
@@ -43,7 +46,8 @@
       "icon": "📱",
       "category": "nonNegotiable",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     },
     {
@@ -51,7 +55,9 @@
       "name": "Pročitati 20 stranica knjige",
       "icon": "📖",
       "category": "nonNegotiable",
-      "completions": {}
+      "completions": {
+        "2026-08-14": true
+      }
     },
     {
       "id": "habit-dfa6db0b-699c-428d-acd8-420d9debd2bf",
@@ -59,7 +65,8 @@
       "icon": "🥗",
       "category": "nonNegotiable",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     },
     {
@@ -67,7 +74,9 @@
       "name": "Piti 3L vode",
       "icon": "🥤",
       "category": "nonNegotiable",
-      "completions": {}
+      "completions": {
+        "2026-08-14": true
+      }
     },
     {
       "id": "habit-9cf090fc-e06f-4fd1-b285-a25d5c56baf3",
@@ -75,7 +84,8 @@
       "icon": "🍺",
       "category": "nonNegotiable",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     },
     {
@@ -109,7 +119,8 @@
       "icon": "🎓",
       "category": "other",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     },
     {
@@ -118,7 +129,8 @@
       "icon": "⌨️",
       "category": "other",
       "completions": {
-        "2026-08-12": true
+        "2026-08-12": true,
+        "2026-08-14": true
       }
     }
   ],

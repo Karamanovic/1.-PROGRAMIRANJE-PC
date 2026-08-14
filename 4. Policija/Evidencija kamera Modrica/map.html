@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Kamera - Evidencija Modrica</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Leaflet CSS (Open Source Maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🗺️ Mapa Kamera Modrica</h1>
+                    <p>Kartografski prikaz svih instaliranih kamera</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-wrapper">
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <h2>Navigacija</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">📊 Kontrolna Tabla</a></li>
+                    <li><a href="index.html?page=cameras" class="nav-link">📷 Evidencija Kamera</a></li>
+                    <li><a href="index.html?page=objects" class="nav-link">🏢 Privatni Objekti</a></li>
+                    <li><a href="index.html?page=streets" class="nav-link">🛣️ Ulice</a></li>
+                    <li><a href="index.html?page=reports" class="nav-link">📋 Izveštaji</a></li>
+                    <li><a href="#" class="nav-link active">🗺️ Mapa Kamera</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <div class="content-area">
+                    <h1>🗺️ Kartografski Prikaz Kamera</h1>
+
+                    <!-- Kontrole Mape -->
+                    <div class="map-controls">
+                        <div class="filter-section">
+                            <h3>Filtri</h3>
+                            <label>
+                                Status:
+                                <select id="statusFilter">
+                                    <option value="">Svi statusi</option>
+                                    <option value="aktivna">✅ Aktivna</option>
+                                    <option value="neaktivna">🔴 Neaktivna</option>
+                                    <option value="neispravna">⚠️ Neispravna</option>
+                                </select>
+                            </label>
+                            <label>
+                                Kvaliteta:
+                                <select id="qualityFilter">
+                                    <option value="">Sve kvalitete</option>
+                                    <option value="480p">480p</option>
+                                    <option value="720p (HD)">720p (HD)</option>
+                                    <option value="Full HD (1080p)">Full HD (1080p)</option>
+                                    <option value="2K">2K</option>
+                                    <option value="4K">4K</option>
+                                </select>
+                            </label>
+                            <button class="btn-primary" onclick="updateMapFilters()">🔍 Filtriraj</button>
+                        </div>
+                    </div>
+
+                    <!-- Mapa Container -->
+                    <div id="map" style="width: 100%; height: 500px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);"></div>
+
+                    <!-- Legenda -->
+                    <div class="map-legend">
+                        <h3>Legenda</h3>
+                        <div class="legend-item">
+                            <span class="legend-marker" style="background: #27ae60;">●</span>
+                            <span>Aktivna kamera</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-marker" style="background: #7f8c8d;">●</span>
+                            <span>Neaktivna kamera</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-marker" style="background: #e74c3c;">●</span>
+                            <span>Neispravna kamera</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-marker" style="background: #f39c12;">●</span>
+                            <span>U popravci</span>
+                        </div>
+                    </div>
+
+                    <!-- Spisak Kamera -->
+                    <div class="map-list">
+                        <h3>Kamere na Karti</h3>
+                        <div id="cameraList"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Policija Modrica - Mapa Kamera | Verzija 1.0.0</p>
+        </footer>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/map.js"></script>
+
+    <style>
+        .map-controls {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .filter-section label {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-section select {
+            padding: 8px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+        }
+
+        .map-legend {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .legend-marker {
+            font-size: 20px;
+        }
+
+        .map-list {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .camera-list-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .camera-list-item:hover {
+            background: #f9f9f9;
+            transform: translateX(5px);
+        }
+    </style>
+
+    <script>
+        // Inicijalizacija Leaflet mape
+        const mapContainer = L.map('map').setView([45.33, 17.55], 13);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(mapContainer);
+
+        // Boje prema statusu
+        const statusColors = {
+            'aktivna': '#27ae60',
+            'neaktivna': '#7f8c8d',
+            'neispravna': '#e74c3c',
+            'u popravci': '#f39c12'
+        };
+
+        // Učitaj kamere na mapu
+        function loadCamerasOnMap() {
+            const cameras = storage.getAllCameras();
+            
+            cameras.forEach(camera => {
+                const lat = 45.3 + (Math.random() * 0.1 - 0.05);
+                const lng = 17.55 + (Math.random() * 0.1 - 0.05);
+                
+                const color = statusColors[camera.status] || '#3498db';
+                
+                const marker = L.circleMarker([lat, lng], {
+                    radius: 8,
+                    fillColor: color,
+                    color: '#000',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(mapContainer);
+
+                const popupContent = `
+                    <div style="text-align: center;">
+                        <strong>${camera.objectName}</strong><br>
+                        ${camera.street}<br>
+                        <small>Kvaliteta: ${camera.quality}<br>
+                        Status: ${camera.status}</small>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+            });
+
+            // Prikaži spisak kamera
+            const listContainer = document.getElementById('cameraList');
+            listContainer.innerHTML = cameras.map(cam => `
+                <div class="camera-list-item">
+                    <strong>${cam.objectName}</strong><br>
+                    <small>${cam.street} • ${cam.quality} • ${cam.status}</small>
+                </div>
+            `).join('');
+        }
+
+        // Ažuriraj filtere
+        function updateMapFilters() {
+            const status = document.getElementById('statusFilter').value;
+            const quality = document.getElementById('qualityFilter').value;
+            
+            console.log('Filtriram po:', { status, quality });
+            
+            // Ovdje implementirate logiku filtriranja
+            alert('Filtriranje je implementirano u verziji 2.0');
+        }
+
+        // Učitaj kamere
+        window.addEventListener('load', loadCamerasOnMap);
+    </script>
+</body>
+</html>

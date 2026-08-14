@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+    <html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistem za evidenciju privatnih objekata sa kamerama - Policija Modrica">
+    <meta name="author" content="Policija Modrica">
+    <title>Evidencija Kamera - Modrica 📷</title>
+    
+    <!-- CSS Datoteke -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome za ikone (opciono) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Zaglavlje -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>📷 Evidencija Kamera Modrica</h1>
+                    <p>Sistem za evidenciju privatnih objekata sa instaliranim kamerama</p>
+                </div>
+                <div class="header-info">
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigacijski dugme za mobilni -->
+        <button class="menu-toggle" id="menuToggle">☰ Meni</button>
+
+        <div class="main-wrapper">
+            <!-- Sidebar navigacija -->
+            <nav class="sidebar">
+                <div class="nav-header">
+                    <h2>Navigacija</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#" data-page="dashboard" class="nav-link active">📊 Kontrolna Tabla</a></li>
+                    <li><a href="#" data-page="cameras" class="nav-link">📷 Evidencija Kamera</a></li>
+                    <li><a href="#" data-page="objects" class="nav-link">🏢 Privatni Objekti</a></li>
+                    <li><a href="#" data-page="streets" class="nav-link">🛣️ Ulice</a></li>
+                    <li><a href="#" data-page="map" class="nav-link">🗺️ Mapa</a></li>
+                    <li><a href="#" data-page="reviews" class="nav-link">📝 Evidencija pregleda</a></li>
+                    <li><a href="#" data-page="archive" class="nav-link">🗄️ Arhiva kamera</a></li>
+                    <li><a href="#" data-page="reports" class="nav-link">📋 Izveštaji</a></li>
+                    <li><a href="#" data-page="settings" class="nav-link">⚙️ Postavke</a></li>
+                </ul>
+                <div class="sidebar-footer">
+                    <p>v1.0.0</p>
+                </div>
+            </nav>
+
+            <!-- Glavna sadržajna zona -->
+            <main class="main-content">
+                <div id="mainContent" class="content-area">
+                    <!-- Sadržaj se učitava dinamički -->
+                </div>
+            </main>
+        </div>
+
+        <!-- Podnožje -->
+        <footer class="footer">
+            <p>&copy; 2026 Policija Modrica - Sistem za evidenciju kamera | Verzija 1.0.0</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Datoteke -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // Postavi trenutni datum
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        document.getElementById('currentDate').textContent = `${day}/${month}/${year}`;
+
+        // Mobilni meni
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Zatvori meni kada korisnik klikne na link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
